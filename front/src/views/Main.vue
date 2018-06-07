@@ -57,7 +57,7 @@
         <Layout :style="{minHeight: '100vh'}">
             <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
                 <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-                    <router-link  to="/forecastNumber" @click.native="flushCom">
+                    <router-link  to="/forecastNumber">
                         <MenuItem name="1-1">
                             <Icon type="happy-outline"></Icon>
                             <span>预测号码</span>
@@ -111,9 +111,6 @@ export default {
   methods: {
     collapsedSider () {
       this.$refs.side1.toggleCollapse()
-    },
-    flushCom: function () {
-      this.$router.go(0)
     }
   }
 }

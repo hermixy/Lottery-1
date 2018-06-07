@@ -51,24 +51,24 @@
     .layout-footer-center{
         text-align: center;
     }
-    .card-title{
-        color: #abafbd;
-        font-size: 20px;
-    }
 </style>
 <template>
     <div class="layout">
         <Layout :style="{minHeight: '100vh'}">
             <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
                 <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-                    <MenuItem name="1-1">
-                        <Icon type="happy-outline"></Icon>
-                        <span>预测号码</span>
-                    </MenuItem>
-                    <MenuItem name="1-2">
-                        <Icon type="connection-bars"></Icon>
-                        <span>今日趋势</span>
-                    </MenuItem>
+                    <router-link  to="/forecastNumber" @click.native="flushCom">
+                        <MenuItem name="1-1">
+                            <Icon type="happy-outline"></Icon>
+                            <span>预测号码</span>
+                        </MenuItem>
+                    </router-link>
+                    <router-link to="/trendingToday">
+                        <MenuItem name="1-2">
+                            <Icon type="connection-bars"></Icon>
+                            <span>今日趋势</span>
+                        </MenuItem>
+                    </router-link>
                 </Menu>
             </Sider>
             <Layout>
@@ -76,45 +76,11 @@
                     <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
                 </Header>
                 <Content :style="{margin: '20px 20px 0', padding: '20px 20px',background: '#fff', minHeight: '260px'}">
-                    <Row :gutter="30">
-                       <Col :md="24" :lg="10">
-                            <Row>
-                                <Col :md="12" :lg="24">
-                                   <Row type="flex" align="middle">
-                                        <Col span="18">
-                                            <Input v-model="value_number" placeholder="请输入开奖号" size="large">
-                                                <Select v-model="value_number_select" slot="append" style="width: 70px">
-                                                    <Option value="m0">M0</Option>
-                                                    <Option value="m1">M1</Option>
-                                                    <Option value="m2">M2</Option>
-                                                    <Option value="m3">M3</Option>
-                                                    <Option value="m4">M4</Option>
-                                                </Select>
-                                            </Input>
-                                        </Col>
-                                        <Col span="6">
-                                            <Button type="primary" :loading="loading" @click="toLoading" :style="{width: '85px', margin:'5px'}">
-                                                <span v-if="!loading">执行</span>
-                                                <span v-else>加载中</span>
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                                <Col :md="12" :lg="24">
-                                    <Input v-model="value_numbers" type="textarea" :rows="20" :style="{marginTop:'20px'}" placeholder="预测号码"></Input>
-                                </Col>
-                             </Row>
-                        </Col>
-                        <Col :md="24" :lg="14">
-                           <p class="card-title">
-                                <Icon type="android-list"></Icon>
-                                今日开奖列表
-                           </p>
-                           <div :style="{marginTop:'10px'}">
-                                <Table border stripe height="450" :columns="tableColumns" :data="tableData" ></Table>
-                           </div>
-                        </Col>
-                    </Row>
+                    <div class="">
+                        <keep-alive>
+                            <router-view></router-view>
+                        </keep-alive>
+                    </div>
                 </Content>
                 <Footer class="layout-footer-center"> copyright©2017-2018</Footer>
             </Layout>
@@ -125,84 +91,7 @@
 export default {
   data () {
     return {
-      loading: false,
-      isCollapsed: false,
-      tableColumns: [
-        {
-          title: '期号',
-          key: 'issue'
-        },
-        {
-          title: '开奖号码',
-          key: 'lucky_number'
-        },
-        {
-          title: '类型',
-          key: 'type_number'
-        }
-      ],
-      tableData: [
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        }
-      ]
+      isCollapsed: false
     }
   },
   computed: {
@@ -223,10 +112,9 @@ export default {
     collapsedSider () {
       this.$refs.side1.toggleCollapse()
     },
-    toLoading () {
-      this.loading = true
+    flushCom: function () {
+      this.$router.go(0)
     }
-
   }
 }
 </script>

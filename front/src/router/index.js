@@ -12,6 +12,7 @@ export default new Router({
       path: '/',
       name: 'Main',
       component: Main,
+      redirect: '/forecastNumber',
       children: [
         {
           path: 'trendingToday',

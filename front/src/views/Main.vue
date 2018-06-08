@@ -56,19 +56,15 @@
     <div class="layout">
         <Layout :style="{minHeight: '100vh'}">
             <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-                    <router-link  to="/forecastNumber">
-                        <MenuItem name="1-1">
+                <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
+                        <MenuItem name="1-1" @click.native="toGoForecastNumber">
                             <Icon type="happy-outline"></Icon>
                             <span>预测号码</span>
                         </MenuItem>
-                    </router-link>
-                    <router-link to="/trendingToday">
-                        <MenuItem name="1-2">
+                        <MenuItem name="1-2" @click.native="toGoTrendingToday">
                             <Icon type="connection-bars"></Icon>
                             <span>今日趋势</span>
                         </MenuItem>
-                    </router-link>
                 </Menu>
             </Sider>
             <Layout>
@@ -111,6 +107,12 @@ export default {
   methods: {
     collapsedSider () {
       this.$refs.side1.toggleCollapse()
+    },
+    toGoForecastNumber () {
+      this.$router.push({path: '/forecastNumber'})
+    },
+    toGoTrendingToday () {
+      this.$router.push({path: '/trendingToday'})
     }
   }
 }

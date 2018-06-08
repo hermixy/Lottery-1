@@ -15,8 +15,8 @@
   "dependencies": {
     "echarts": "^4.1.0",
     "element-ui": "^2.4.0",
-    "iview": "^2.14.1",
-    "v-charts": "^1.16.19",
+    "iview": "^2.14.2",
+    "v-charts": "^1.16.22",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

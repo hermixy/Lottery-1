@@ -55,16 +55,21 @@
 <template>
     <div class="layout">
         <Layout :style="{minHeight: '100vh'}">
-            <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
-                        <MenuItem name="1-1" @click.native="toGoForecastNumber">
+            <Sider ref="side1" breakpoint="sm" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
+                <Menu active-name="1-1" :open-names="['1']" theme="dark" width="auto" :class="menuitemClasses">
+                    <Submenu name="1">
+                        <template slot="title">
                             <Icon type="happy-outline"></Icon>
-                            <span>预测号码</span>
+                            预测号码
+                        </template>
+                        <MenuItem name="1-1" @click.native="toGoForecastNumber">
+                            山东11选5
                         </MenuItem>
-                        <MenuItem name="1-2" @click.native="toGoTrendingToday">
-                            <Icon type="connection-bars"></Icon>
-                            <span>今日趋势</span>
-                        </MenuItem>
+                    </Submenu>
+                    <MenuItem name="1-2" @click.native="toGoTrendingToday">
+                        <Icon type="connection-bars"></Icon>
+                        <span>今日趋势</span>
+                    </MenuItem>
                 </Menu>
             </Sider>
             <Layout>

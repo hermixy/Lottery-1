@@ -13,9 +13,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.0",
     "iview": "^2.14.2",
+    "mockjs": "^1.0.1-beta3",
     "v-charts": "^1.16.22",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"

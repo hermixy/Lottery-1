@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 import json
 from apscheduler.schedulers.blocking import BlockingScheduler
-from Lottery import OpenNumber, db
+import Lottery
 
 session = HTMLSession()
 scheduler = BlockingScheduler()
@@ -47,14 +47,14 @@ def getData():
     # countLists.sort(reverse=False)
     # print(countLists)
     for key in sortItemDict:
-        openNumber = OpenNumber(key, itemDicts[key])
-        db.session.add(openNumber)
+        openNumber = Lottery.OpenNumber(key, itemDicts[key])
+        Lottery.db.session.add(openNumber)
         # print("期号：", key, " 开奖号码：", itemDicts[key])
         numberDicts[key] = itemDicts[key]
         if not itemDicts[key]:
             count = key[-2:]
             break
-    db.session.commit()
+    Lottery.db.session.commit()
 
     print(numberDicts)
     print(count)
@@ -76,7 +76,7 @@ numberDict = []
 def getOpenNumbers(date):
     numberDict.clear()
     list2json = {}
-    openNumber = OpenNumber.query.all()
+    openNumber = Lottery.OpenNumber.query.all()
     # print(type(openNumber))
     for item in openNumber:
         # print(type(item))

@@ -22,9 +22,6 @@ class OpenNumber(db.Model):
         self.data_period = data_period
         self.data_award = data_award
 
-    # def __repr__(self):
-    #     return '<期号 %r>' % self.data_period
-
 @app.route('/')
 def hello_world():
     return 'Hello World!'
@@ -68,4 +65,4 @@ def return2Json(result):
 #     print(url_for('hello_world'))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

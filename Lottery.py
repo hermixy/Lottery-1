@@ -30,7 +30,9 @@ def hello_world():
 def get_open_info():
     if request.method == 'POST':
         date = request.form['date']
-        numberJson = OpenData.getOpenNumbers(date)
+        openNumber = OpenNumber.query.filter(
+            OpenNumber.data_period.like(date + "%") if date is not None else "").all()
+        numberJson = OpenData.getOpenNumbers(openNumber)
         return Response(numberJson, mimetype='application/json')
     return '暂无数据'
 

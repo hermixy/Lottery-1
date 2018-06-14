@@ -13,7 +13,7 @@ session = HTMLSession()
 scheduler = BlockingScheduler()
 
 count = 0
-
+# numberDicts = dict()
 
 def getData():
     global count
@@ -21,8 +21,7 @@ def getData():
     content = response.html.find('section.main', first=True)
     body = content.find('tbody')
     itemDicts = dict()
-    numberDicts = dict()
-    numberDicts.clear()
+
     # countLists = []
     # countLists.clear()
     for tr in body:
@@ -46,22 +45,27 @@ def getData():
     # print(itemDicts)
     # countLists.sort(reverse=False)
     # print(countLists)
+    lastNumber = Lottery.OpenNumber.query.order_by(Lottery.OpenNumber.data_period.desc()).first()
+    print(lastNumber.data_period, lastNumber.data_award)
     for key in sortItemDict:
-        openNumber = Lottery.OpenNumber(key, itemDicts[key])
-        Lottery.db.session.add(openNumber)
-        # print("期号：", key, " 开奖号码：", itemDicts[key])
-        numberDicts[key] = itemDicts[key]
         if not itemDicts[key]:
             count = key[-2:]
             break
-    Lottery.db.session.commit()
+        # print("期号：", key, " 开奖号码：", itemDicts[key])
 
-    print(numberDicts)
+        print(key > lastNumber.data_period)
+        if key > lastNumber.data_period:
+            # numberDicts[key] = itemDicts[key]
+            openNumber = Lottery.OpenNumber(key, itemDicts[key])
+            Lottery.db.session.add(openNumber)
+
+    Lottery.db.session.commit()
+    # print(numberDicts)
     print(count)
     count = str(count)
     # if count == str(87):
     #     scheduler.remove_job('job_index')
-    return numberDicts
+    # return numberDicts
 
 
 class DataAward(object):
@@ -73,10 +77,9 @@ class DataAward(object):
 numberDict = []
 
 
-def getOpenNumbers(date):
+def getOpenNumbers(openNumber):
     numberDict.clear()
     list2json = {}
-    openNumber = Lottery.OpenNumber.query.all()
     # print(type(openNumber))
     for item in openNumber:
         # print(type(item))

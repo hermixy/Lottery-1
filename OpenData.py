@@ -91,5 +91,5 @@ def getOpenNumbers(openNumber):
 
 if __name__ == '__main__':
     # getData()
-    scheduler.add_job(getData, 'interval', minutes=1, id='job_index')
+    scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
     scheduler.start()

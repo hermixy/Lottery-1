@@ -63,6 +63,7 @@ def getData():
     # print(numberDicts)
     print(count)
     count = str(count)
+    print("getData ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     # if count == str(87):
     #     scheduler.remove_job('job_index')
     # return numberDicts
@@ -89,7 +90,18 @@ def getOpenNumbers(openNumber):
     jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
     return jsonRes
 
+def start():
+    scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
+    print("start ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+def stop():
+    scheduler.remove_job('job_index')
+    print("stop ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
 if __name__ == '__main__':
     # getData()
     scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
+    scheduler.add_job(start, 'cron', hour=8, minute=37)
+    scheduler.add_job(stop, 'cron', hour=23)
+
     scheduler.start()

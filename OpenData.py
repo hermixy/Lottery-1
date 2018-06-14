@@ -1,16 +1,16 @@
 # -*- coding: UTF-8 -*-
 
 from requests_html import HTMLSession
-import requests
+# import requests
 # import sched
 import time
 from datetime import datetime
 import json
-from apscheduler.schedulers.blocking import BlockingScheduler
+# from apscheduler.schedulers.blocking import BlockingScheduler
 import Lottery
 
 session = HTMLSession()
-scheduler = BlockingScheduler()
+# scheduler = BlockingScheduler()
 
 count = 0
 # numberDicts = dict()
@@ -53,7 +53,7 @@ def getData():
             break
         # print("期号：", key, " 开奖号码：", itemDicts[key])
 
-        print(key > lastNumber.data_period)
+        # print(key > lastNumber.data_period)
         if key > lastNumber.data_period:
             # numberDicts[key] = itemDicts[key]
             openNumber = Lottery.OpenNumber(key, itemDicts[key])
@@ -89,7 +89,6 @@ def getOpenNumbers(openNumber):
     list2json["listData"] = numberDict
     jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
     return jsonRes
-
 
 if __name__ == '__main__':
     getData()

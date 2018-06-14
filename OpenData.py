@@ -46,15 +46,15 @@ def getData():
     # countLists.sort(reverse=False)
     # print(countLists)
     lastNumber = Lottery.OpenNumber.query.order_by(Lottery.OpenNumber.data_period.desc()).first()
-    print(lastNumber.data_period, lastNumber.data_award)
+    data_period = 0
+    if lastNumber:
+        data_period = lastNumber.data_period
     for key in sortItemDict:
         if not itemDicts[key]:
             count = key[-2:]
             break
-        # print("期号：", key, " 开奖号码：", itemDicts[key])
 
-        # print(key > lastNumber.data_period)
-        if key > lastNumber.data_period:
+        if int(key) > int(data_period):
             # numberDicts[key] = itemDicts[key]
             openNumber = Lottery.OpenNumber(key, itemDicts[key])
             Lottery.db.session.add(openNumber)
@@ -82,7 +82,6 @@ def getOpenNumbers(openNumber):
     list2json = {}
     # print(type(openNumber))
     for item in openNumber:
-        # print(type(item))
         dataAward = DataAward(item.data_period, item.data_award)
         numberDict.append(dataAward)
         # print(json.dumps(dataAward, default=lambda obj: obj.__dict__))

@@ -2,6 +2,7 @@
 from itertools import combinations
 from itertools import permutations
 from itertools import filterfalse
+import json
 
 test_data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 # for i in combinations(test_data, 5):
@@ -66,26 +67,45 @@ def initNumbers(strs):
     calculate(new_list)
 
 
-def getM0():
-    return listsOf0
+class DataForecast(object):
+    def __init__(self, number):
+        self.number = number
 
 
-def getM1():
-    return listsOf1
+numberDict = []
 
 
-def getM2():
-    return listsOf2
+def getOpenNumbers(numbers):
+    numberDict.clear()
+    list2json = {}
+    for item in numbers:
+        l = list(item)
+        for i in range(0, l.__len__()):
+            l[i] = str(l[i])
+        s = ','.join(l)
+        dataForecast = DataForecast(s)
+        numberDict.append(dataForecast)
+
+    list2json["listData"] = numberDict
+    jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
+    return jsonRes
 
 
-def getM3():
-    return listsOf3
-
-
-def getM4():
-    return listsOf4
+def getForecastNumbers(method, numbers):
+    initNumbers(numbers)
+    if method == str("m0"):
+        return getOpenNumbers(listsOf0)
+    if method == str("m1"):
+        return getOpenNumbers(listsOf1)
+    if method == str("m2"):
+        return getOpenNumbers(listsOf2)
+    if method == str("m3"):
+        return getOpenNumbers(listsOf3)
+    if method == str("m4"):
+        return getOpenNumbers(listsOf4)
 
 
 if __name__ == '__main__':
     strs = "04,01,10,03,09"
     initNumbers(strs)
+    print(getOpenNumbers(listsOf0))

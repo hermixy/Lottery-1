@@ -33,7 +33,7 @@ def get_open_info():
         openNumber = OpenNumber.query.filter(
             OpenNumber.data_period.like(date + "%") if date is not None else "").all()
         numberJson = OpenData.getOpenNumbers(openNumber)
-        return Response(numberJson, mimetype='application/json')
+        return return2Json(numberJson)
     return '暂无数据'
 
 @app.route('/lottery', methods=['POST'])
@@ -41,26 +41,12 @@ def get_numbers():
     if request.method == 'POST':
         method = request.form['type']
         numbers = request.form['numbers']
-        DataCombinations.initNumbers(numbers)
-        if method == str("m0"):
-            m0 = DataCombinations.getM0()
-            return return2Json(m0)
-        if method == str("m1"):
-            m1 = DataCombinations.getM1()
-            return return2Json(m1)
-        if method == str("m2"):
-            m2 = DataCombinations.getM2()
-            return return2Json(m2)
-        if method == str("m3"):
-            m3 = DataCombinations.getM3()
-            return return2Json(m3)
-        if method == str("m4"):
-            m4 = DataCombinations.getM4()
-            return return2Json(m4)
+        numberJson = DataCombinations.getForecastNumbers(method, numbers)
+        return return2Json(numberJson)
     return '暂无数据'
 
-def return2Json(result):
-    return jsonify({"data": str(result)})
+def return2Json(json):
+    return Response(json, mimetype='application/json')
 
 
 # with app.test_request_context():

@@ -6,11 +6,11 @@ from requests_html import HTMLSession
 import time
 from datetime import datetime
 import json
-# from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 import Lottery
 
 session = HTMLSession()
-# scheduler = BlockingScheduler()
+scheduler = BlockingScheduler()
 
 count = 0
 # numberDicts = dict()
@@ -90,6 +90,6 @@ def getOpenNumbers(openNumber):
     return jsonRes
 
 if __name__ == '__main__':
-    getData()
-    # scheduler.add_job(getData, 'interval', seconds=30, id='job_index')
-    # scheduler.start()
+    # getData()
+    scheduler.add_job(getData, 'interval', minutes=1, id='job_index')
+    scheduler.start()

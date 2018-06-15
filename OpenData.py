@@ -9,6 +9,7 @@ import json
 import random
 from apscheduler.schedulers.blocking import BlockingScheduler
 import Lottery
+import DataCombinations
 
 session = HTMLSession()
 scheduler = BlockingScheduler()
@@ -59,12 +60,18 @@ def getData():
 
         if int(key) > int(data_period):
             # numberDicts[key] = itemDicts[key]
-            openNumber = Lottery.OpenNumber(key, itemDicts[key])
+            if data_period != 0:
+                type = DataCombinations.getNumberType(itemDicts[key], lastNumber.data_award)
+                print(itemDicts[key])
+                print(lastNumber.data_award)
+                print(type)
+
+            openNumber = Lottery.OpenNumber(key, itemDicts[key], type)
             Lottery.db.session.add(openNumber)
 
     Lottery.db.session.commit()
     # print(numberDicts)
-    print(count)
+    # print(count)
     count = str(count)
     print("getData ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     # if count == str(87):
@@ -109,9 +116,9 @@ def stop():
 
 
 if __name__ == '__main__':
-    # getData()
-    scheduler.add_job(getData, 'interval', minutes=10, seconds=getRandom(), id='job_index')
-    scheduler.add_job(start, 'cron', hour=8, minute=27)
-    scheduler.add_job(stop, 'cron', hour=23)
-
-    scheduler.start()
+    getData()
+    # scheduler.add_job(getData, 'interval', minutes=10, seconds=getRandom(), id='job_index')
+    # scheduler.add_job(start, 'cron', hour=8, minute=27)
+    # scheduler.add_job(stop, 'cron', hour=23)
+    #
+    # scheduler.start()

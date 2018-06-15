@@ -31,7 +31,7 @@ def calculate(numbers):
     open_number = set(numbers)
     for a in combinations(test_data, 5):
         start = set(a)
-        # print("a ", start)
+        print("a ", start)
         # print("交集： ", start & open_number)
         if start & open_number:
             count = len(start & open_number)
@@ -105,7 +105,38 @@ def getForecastNumbers(method, numbers):
         return getOpenNumbers(listsOf4)
 
 
+def calculateNumber(numbers):
+    start_list = numbers.split(' ')
+    start_new_list = []
+    for number in start_list:
+        n = int(number)
+        s = "%01d" % n
+        start_new_list.append(int(s))
+    # list.sort(reverse=False)
+    return set(start_new_list)
+
+
+def getNumberType(start, end):
+    start_set = calculateNumber(start)
+    end_set = calculateNumber(end)
+    count = getIntersectionNum(start_set, end_set)
+    if count == 1:
+        return "M1"
+    elif count == 2:
+        return "M2"
+    elif count == 3:
+        return "M3"
+    elif count == 4:
+        return "M4"
+    else:
+        return "M0"
+
+# 得到并集数
+def getIntersectionNum(start, end):
+    return len(start & end)
+
+
 if __name__ == '__main__':
     strs = "04,01,10,03,09"
     initNumbers(strs)
-    print(getOpenNumbers(listsOf0))
+    # print(getOpenNumbers(listsOf0))

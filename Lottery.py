@@ -3,6 +3,8 @@
 
 from flask import Flask, url_for, render_template, redirect, request, jsonify, Response
 from flask_sqlalchemy import SQLAlchemy
+from flask_script import Manager, Shell
+from flask_migrate import Migrate,MigrateCommand
 import DataCombinations
 import OpenData
 
@@ -10,17 +12,25 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/lotterys.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+manager = Manager(app)
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 
 class OpenNumber(db.Model):
     __tablename__ = 'open_numbers'
     id = db.Column(db.Integer, primary_key=True)
     data_period = db.Column(db.String(20))
     data_award = db.Column(db.String(50))
+    data_type = db.Column(db.String(10))
 
-    def __init__(self, data_period, data_award):
+    def __init__(self, data_period, data_award, data_type):
         self.data_period = data_period
         self.data_award = data_award
+        self.data_type = data_type
+
+manager.add_command('db', MigrateCommand)
 
 @app.route('/')
 def hello_world():
@@ -54,3 +64,4 @@ def return2Json(json):
 
 if __name__ == '__main__':
     app.run(debug=True)
+    # manager.run()

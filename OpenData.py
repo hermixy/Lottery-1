@@ -14,6 +14,8 @@ session = HTMLSession()
 scheduler = BlockingScheduler()
 
 count = 0
+
+
 # numberDicts = dict()
 
 def getData():
@@ -91,19 +93,25 @@ def getOpenNumbers(openNumber):
     jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
     return jsonRes
 
+
+def getRandom():
+    return random.randint(10, 55)
+
+
 def start():
-    scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
+    scheduler.add_job(getData, 'interval', minutes=10, seconds=getRandom(), id='job_index')
     print("start ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
 
 def stop():
     scheduler.remove_job('job_index')
     print("stop ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
+
 if __name__ == '__main__':
     # getData()
-    scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
-    scheduler.add_job(start, 'cron', hour=8, minute=28, seconds=random.randint(1, 5))
+    scheduler.add_job(getData, 'interval', minutes=10, seconds=getRandom(), id='job_index')
+    scheduler.add_job(start, 'cron', hour=8, minute=27)
     scheduler.add_job(stop, 'cron', hour=23)
 
     scheduler.start()
-

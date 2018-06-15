@@ -82,7 +82,7 @@ def getOpenNumbers(numbers):
         l = list(item)
         for i in range(0, l.__len__()):
             l[i] = str(l[i])
-        s = ','.join(l)
+        s = ' '.join(l)
         dataForecast = DataForecast(s)
         numberDict.append(dataForecast)
 

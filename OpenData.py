@@ -6,6 +6,7 @@ from requests_html import HTMLSession
 import time
 from datetime import datetime
 import json
+import random
 from apscheduler.schedulers.blocking import BlockingScheduler
 import Lottery
 
@@ -96,12 +97,13 @@ def start():
 
 def stop():
     scheduler.remove_job('job_index')
-    print("stop ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    print("stop", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 if __name__ == '__main__':
     # getData()
     scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
-    scheduler.add_job(start, 'cron', hour=8, minute=37)
+    scheduler.add_job(start, 'cron', hour=8, minute=28, seconds=random.randint(1, 5))
     scheduler.add_job(stop, 'cron', hour=23)
 
     scheduler.start()
+

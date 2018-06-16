@@ -81,9 +81,10 @@ def getData():
 
 
 class DataAward(object):
-    def __init__(self, data_period, data_award):
+    def __init__(self, data_period, data_award, data_type):
         self.data_period = data_period
         self.data_award = data_award
+        self.data_type = data_type
 
 
 numberDict = []
@@ -94,7 +95,7 @@ def getOpenNumbers(openNumber):
     list2json = {}
     # print(type(openNumber))
     for item in openNumber:
-        dataAward = DataAward(item.data_period, item.data_award)
+        dataAward = DataAward(item.data_period, item.data_award, item.data_type)
         numberDict.append(dataAward)
         # print(json.dumps(dataAward, default=lambda obj: obj.__dict__))
     list2json["listData"] = numberDict
@@ -117,7 +118,7 @@ def stop():
 
 
 if __name__ == '__main__':
-    getData()
+    # getData()
     scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
     scheduler.add_job(start, 'cron', hour=8, minute=27, second=getRandom())
     scheduler.add_job(stop, 'cron', hour=23)

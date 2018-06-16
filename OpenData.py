@@ -21,7 +21,7 @@ count = 0
 
 def getData():
     global count
-    response = session.get('http://caipiao.163.com/award/11xuan5/')
+    response = session.get('http://caipiao.163.com/award/11xuan5/20180616.html')
     content = response.html.find('section.main', first=True)
     body = content.find('tbody')
     itemDicts = dict()
@@ -51,6 +51,7 @@ def getData():
     # print(countLists)
     lastNumber = Lottery.OpenNumber.query.order_by(Lottery.OpenNumber.data_period.desc()).first()
     data_period = 0
+    data_type = ""
     if lastNumber:
         data_period = lastNumber.data_period
     for key in sortItemDict:
@@ -61,14 +62,14 @@ def getData():
         if int(key) > int(data_period):
             # numberDicts[key] = itemDicts[key]
             if data_period != 0:
-                type = DataCombinations.getNumberType(itemDicts[key], lastNumber.data_award)
-                print(itemDicts[key])
-                print(lastNumber.data_award)
-                print(type)
+                pre = str(int(key) - 1)  # 上一期
+                if pre in itemDicts.keys():
+                    data_type = DataCombinations.getNumberType(itemDicts[key], itemDicts[pre])
 
-            openNumber = Lottery.OpenNumber(key, itemDicts[key], type)
+            openNumber = Lottery.OpenNumber(key, itemDicts[key], data_type)
             Lottery.db.session.add(openNumber)
-
+            print(key, itemDicts[key])
+    #
     Lottery.db.session.commit()
     # print(numberDicts)
     # print(count)
@@ -102,11 +103,11 @@ def getOpenNumbers(openNumber):
 
 
 def getRandom():
-    return random.randint(10, 55)
+    return random.randint(10, 20)
 
 
 def start():
-    scheduler.add_job(getData, 'interval', minutes=10, seconds=getRandom(), id='job_index')
+    scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
     print("start ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 
@@ -117,8 +118,8 @@ def stop():
 
 if __name__ == '__main__':
     getData()
-    # scheduler.add_job(getData, 'interval', minutes=10, seconds=getRandom(), id='job_index')
-    # scheduler.add_job(start, 'cron', hour=8, minute=27)
-    # scheduler.add_job(stop, 'cron', hour=23)
-    #
-    # scheduler.start()
+    scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
+    scheduler.add_job(start, 'cron', hour=8, minute=27, second=getRandom())
+    scheduler.add_job(stop, 'cron', hour=23)
+
+    scheduler.start()

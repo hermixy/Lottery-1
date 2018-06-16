@@ -4,7 +4,7 @@
 from flask import Flask, url_for, render_template, redirect, request, jsonify, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager, Shell
-from flask_migrate import Migrate,MigrateCommand
+from flask_migrate import Migrate
 import DataCombinations
 import OpenData
 
@@ -29,8 +29,6 @@ class OpenNumber(db.Model):
         self.data_period = data_period
         self.data_award = data_award
         self.data_type = data_type
-
-manager.add_command('db', MigrateCommand)
 
 @app.route('/')
 def hello_world():
@@ -64,4 +62,3 @@ def return2Json(json):
 
 if __name__ == '__main__':
     app.run(debug=True)
-    # manager.run()

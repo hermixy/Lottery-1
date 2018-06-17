@@ -60,16 +60,21 @@
                     <Submenu name="1">
                         <template slot="title">
                             <Icon type="happy-outline"></Icon>
-                            预测号码
+                            玩法选择
                         </template>
                         <MenuItem name="1-1" @click.native="toGoForecastNumber">
                             山东11选5
                         </MenuItem>
                     </Submenu>
-                    <MenuItem name="1-2" @click.native="toGoTrendingToday">
-                        <Icon type="connection-bars"></Icon>
-                        <span>今日趋势</span>
-                    </MenuItem>
+                    <Submenu name="2">
+                        <template slot="title">
+                            <Icon type="connection-bars"></Icon>
+                            数据统计
+                        </template>
+                        <MenuItem name="1-2" @click.native="toGoTrendingToday">
+                            <span>今日趋势</span>
+                        </MenuItem>
+                    </Submenu>
                 </Menu>
             </Sider>
             <Layout>

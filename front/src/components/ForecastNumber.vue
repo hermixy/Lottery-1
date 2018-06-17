@@ -45,6 +45,7 @@ export default {
   data () {
     return {
       loading: false,
+      value_number_select: 'm0',
       tableColumns: [
         {
           title: '期号',

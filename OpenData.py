@@ -21,7 +21,7 @@ count = 0
 
 def getData():
     global count
-    response = session.get('http://caipiao.163.com/award/11xuan5/20180616.html')
+    response = session.get('http://caipiao.163.com/award/11xuan5/')
     content = response.html.find('section.main', first=True)
     body = content.find('tbody')
     itemDicts = dict()

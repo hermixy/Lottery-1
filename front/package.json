@@ -18,7 +18,7 @@
     "element-ui": "^2.4.0",
     "iview": "^2.14.2",
     "mockjs": "^1.0.1-beta3",
-    "v-charts": "^1.16.22",
+    "v-charts": "^1.17.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

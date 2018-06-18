@@ -45,7 +45,7 @@ export default {
   post (url, data) {
     return axios({
       method: 'post',
-      baseURL: 'http://119.27.171.189',
+      baseURL: 'http://119.27.171.189:80',
       url,
       data: qs.stringify(data),
       timeout: 10000,
@@ -66,7 +66,7 @@ export default {
   get (url, params) {
     return axios({
       method: 'get',
-      baseURL: 'http://119.27.171.189',
+      baseURL: 'http://119.27.171.189:80',
       url,
       params, // get 请求时带的参数
       timeout: 10000,

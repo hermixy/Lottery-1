@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
-
-from flask import Flask, url_for, render_template, redirect, request, jsonify, Response
+from functools import wraps
+from flask import Flask, url_for, render_template, redirect, request, jsonify, Response, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager, Shell
 from flask_migrate import Migrate
@@ -30,9 +30,24 @@ class OpenNumber(db.Model):
         self.data_award = data_award
         self.data_type = data_type
 
+
+def cors(func):
+    @wraps(func)
+    def wrapper_func(*args, **kwargs):
+        r = make_response(func(*args, **kwargs))
+        r.headers['Access-Control-Allow-Origin'] = '*'
+        r.headers['Access-Control-Allow-Methods'] = 'HEAD, OPTIONS, GET, POST, DELETE, PUT'
+        allow_headers = "Referer, Accept, Origin, User-Agent, X-Requested-With, Content-Type"
+        r.headers['Access-Control-Allow-Headers'] = allow_headers
+        return r
+
+    return wrapper_func
+
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
 
 @app.route('/lottery/getOpenData', methods=['POST'])
 def get_open_info():
@@ -44,7 +59,9 @@ def get_open_info():
         return return2Json(numberJson)
     return '暂无数据'
 
+
 @app.route('/lottery', methods=['POST'])
+@cors
 def get_numbers():
     if request.method == 'POST':
         method = request.form['type']
@@ -52,6 +69,7 @@ def get_numbers():
         numberJson = DataCombinations.getForecastNumbers(method, numbers)
         return return2Json(numberJson)
     return '暂无数据'
+
 
 def return2Json(json):
     return Response(json, mimetype='application/json')

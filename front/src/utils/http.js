@@ -19,9 +19,9 @@ axios.interceptors.response.use(response => {
 function checkStatus (response) {
   // loading
   // 如果http状态码正常，则直接返回数据
-  // console.log(response.data)
+  console.log('checkStatus', response.data)
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
-    return response
+    return response.data
     // 如果不需要除了data之外的数据，可以直接 return response.data
   }
   // 异常状态下，把错误信息返回去
@@ -33,14 +33,14 @@ function checkStatus (response) {
 
 function checkCode (res) {
   // 如果code异常(这里已经包括网络错误，服务器错误，后端抛出的错误)，可以弹出一个错误提示，告诉用户
-  // console.log(res)
+  console.log('checkCode', res)
   if (res.status === -404) {
     alert(res.msg)
   }
-  // && (!res.data.success
-  if (res.data) {
-    alert(res.data.msg)
+  if (res) {
+    alert(res.msg)
   }
+  console.log('checkCode', res.data)
   return res
 }
 

@@ -41,11 +41,13 @@
 </template>
 
 <script>
+import http from '../utils/http'
+
 export default {
   data () {
     return {
       loading: false,
-      value_number_select: 'm0',
+      value_number_select: 'm2',
       tableColumns: [
         {
           title: '期号',
@@ -129,8 +131,24 @@ export default {
     },
     toLoading () {
       this.loading = true
-    }
+      let params = {
+        type: 'm2',
+        numbers: '01,02,07,09,10'
+      }
+      const res = http.post('/lottery', params)
+      if (res.data.success) {
+        alert('请求成功')
+      }
 
+      // var that = this
+      // this.$http.post('/lottery', 'type=m2&numbers=01,02,07,09,10').then(function (response) {
+      //   alert(response)
+      //   that.loading = false
+      // }).catch(function (error) {
+      //   alert(error)
+      //   that.loading = false
+      // })
+    }
   }
 }
 </script>

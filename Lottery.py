@@ -50,6 +50,7 @@ def hello_world():
 
 
 @app.route('/lottery/getOpenData', methods=['POST'])
+@cors
 def get_open_info():
     if request.method == 'POST':
         date = request.form['date']

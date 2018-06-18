@@ -31,7 +31,7 @@ def calculate(numbers):
     open_number = set(numbers)
     for a in combinations(test_data, 5):
         start = set(a)
-        print("a ", start)
+        # print("a ", start)
         # print("交集： ", start & open_number)
         if start & open_number:
             count = len(start & open_number)
@@ -85,7 +85,12 @@ def getOpenNumbers(numbers):
         s = ' '.join(l)
         dataForecast = DataForecast(s)
         numberDict.append(dataForecast)
-
+    if numberDict:
+        list2json["status"] = "200"
+        list2json["msg"] = "获取成功"
+    else:
+        list2json["status"] = "666"
+        list2json["msg"] = "没有数据啦"
     list2json["listData"] = numberDict
     jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
     return jsonRes

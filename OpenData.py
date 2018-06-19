@@ -99,10 +99,10 @@ def getOpenNumbers(openNumber):
         numberDict.append(dataAward)
         # print(json.dumps(dataAward, default=lambda obj: obj.__dict__))
     if numberDict:
-        list2json["status"] = "200"
+        list2json["status"] = 200
         list2json["msg"] = "获取成功"
     else:
-        list2json["status"] = "666"
+        list2json["status"] = 666
         list2json["msg"] = "没有数据啦"
 
     list2json["listData"] = numberDict

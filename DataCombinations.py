@@ -86,11 +86,12 @@ def getOpenNumbers(numbers):
         dataForecast = DataForecast(s)
         numberDict.append(dataForecast)
     if numberDict:
-        list2json["status"] = "200"
+        list2json["status"] = 200
         list2json["msg"] = "获取成功"
     else:
-        list2json["status"] = "666"
+        list2json["status"] = 666
         list2json["msg"] = "没有数据啦"
+        
     list2json["listData"] = numberDict
     jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
     return jsonRes

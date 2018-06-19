@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/views/hello/HelloWorld'
 import Main from '@/views/Main'
+import TrendingToday from '@/components/TrendingToday.vue'
+import ForecastNumber from '@/components/ForecastNumber.vue'
 
 Vue.use(Router)
 
@@ -16,13 +18,13 @@ export default new Router({
       children: [
         {
           path: 'trendingToday',
-          name: '今日趋势',
-          component: () => import('@/components/TrendingToday.vue')
+          name: '数据统计',
+          component: TrendingToday
         },
         {
           path: 'forecastNumber',
-          name: '预测号码',
-          component: () => import('@/components/ForecastNumber.vue')
+          name: '玩法选择',
+          component: ForecastNumber
         }
       ]
     },

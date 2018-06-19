@@ -1,11 +1,11 @@
 <template>
   <Row :gutter="30">
-    <Col :md="24" :lg="9">
+    <Col :md="24" :lg="10">
         <Row>
             <Col :md="12" :lg="24">
                 <Row type="flex" align="middle">
                     <Col span="18">
-                        <Input v-model="value_number" placeholder="请输入开奖号" size="large">
+                        <Input v-model="value_number" placeholder="号码格式01 02 07 09 10" maxlength="20" size="large">
                             <Select v-model="value_number_select" slot="append" style="width: 70px">
                                 <Option value="m0">M0</Option>
                                 <Option value="m1">M1</Option>
@@ -24,11 +24,12 @@
                 </Row>
             </Col>
             <Col :md="12" :lg="24">
-                <Input v-model="value_numbers" type="textarea" :rows="20" :style="{marginTop:'20px'}" placeholder="预测号码"></Input>
+                <Input v-model="value_numbers" :disabled="disabled" type="textarea" :rows="20" :style="{marginTop:'20px'}"
+                 placeholder="预测号码" readonly=true></Input>
             </Col>
             </Row>
     </Col>
-    <Col :md="24" :lg="15">
+    <Col :md="24" :lg="14">
         <p class="card-title">
             <Icon type="android-list"></Icon>
             今日开奖列表
@@ -51,103 +52,56 @@ export default {
       tableColumns: [
         {
           title: '期号',
-          key: 'issue'
+          key: 'data_period'
         },
         {
           title: '开奖号码',
-          key: 'lucky_number'
+          key: 'data_award'
         },
         {
           title: '类型',
-          key: 'type_number'
-        }
-      ],
-      tableData: [
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
-        },
-        {
-          issue: '201811111',
-          lucky_number: '0204060709',
-          type_number: 'M2'
+          key: 'data_type'
         }
       ]
+      // tableData:
     }
   },
   computed: {
-    rotateIcon () {
-      return [
-        'menu-icon',
-        this.isCollapsed ? 'rotate-icon' : ''
-      ]
-    },
-    menuitemClasses () {
-      return [
-        'menu-item',
-        this.isCollapsed ? 'collapsed-menu' : ''
-      ]
-    }
   },
   methods: {
     collapsedSider () {
       this.$refs.side1.toggleCollapse()
     },
-    toLoading () {
+    toLoading: async function () {
       this.loading = true
-      let params = {
-        type: 'm2',
-        numbers: '01,02,07,09,10'
+      let number = this.value_number
+      let re = /^(\d{2}\s)+\d{2}$/
+      if (!re.test(number)) {
+        alert('Flase')
+      } else {
+        this.loading = true
+        let params = {
+          type: this.value_number_select,
+          numbers: number.replace(/ /g, ',')
+        }
+        const res = await http.post('/lottery', params)
+        if (http.isSuccess) {
+          this.loading = false
+          let listData = res.listData
+          let content = ''
+          let index = 0
+          for (let i = 0; i < listData.length; i++) {
+            if (index > 0) {
+              content = content + '\n'
+            }
+            content = content + listData[i].number
+            index++
+          }
+          this.value_numbers = content
+          // this.disabled = true
+        }
       }
-      const res = http.post('/lottery', params)
-      if (res.data.success) {
-        alert('请求成功')
-      }
-
-      // var that = this
-      // this.$http.post('/lottery', 'type=m2&numbers=01,02,07,09,10').then(function (response) {
-      //   alert(response)
-      //   that.loading = false
-      // }).catch(function (error) {
-      //   alert(error)
-      //   that.loading = false
-      // })
+      this.loading = false
     }
   }
 }

@@ -35,7 +35,7 @@
             今日开奖列表
         </p>
         <div :style="{marginTop:'10px'}">
-            <Table border stripe height="452" :columns="tableColumns" :data="tableData" ></Table>
+            <Table border stripe :loading="tableLoading" height="452" :columns="tableColumns" :data="tableData" :class="getTableData" ></Table>
         </div>
     </Col>
   </Row>
@@ -43,6 +43,7 @@
 
 <script>
 import http from '../utils/http'
+// import util from '../utils/util'
 
 export default {
   data () {
@@ -52,7 +53,9 @@ export default {
       tableColumns: [
         {
           title: '期号',
-          key: 'data_period'
+          key: 'data_period',
+          sortable: true,
+          sortType: 'desc'
         },
         {
           title: '开奖号码',
@@ -62,22 +65,34 @@ export default {
           title: '类型',
           key: 'data_type'
         }
-      ]
-      // tableData:
+      ],
+      tableData: []
     }
   },
   computed: {
+
+  },
+  mounted: async function () {
+    // let d = util.dataFormat(new Date(), 'yyyyMMdd')
+    // this.$Message.info(d)
+    this.tableLoading = true
+    let params = {
+      date: '180620'
+    }
+    const res = await http.post('/lottery/getOpenData', params)
+    if (http.isSuccess) {
+      this.tableData = res.listData
+      this.tableLoading = false
+      console.log(res.listData)
+    }
   },
   methods: {
-    collapsedSider () {
-      this.$refs.side1.toggleCollapse()
-    },
     toLoading: async function () {
       this.loading = true
       let number = this.value_number
       let re = /^(\d{2}\s)+\d{2}$/
       if (!re.test(number)) {
-        alert('Flase')
+        this.$Message.warning('格式不正确，例如01 02 03 04 05')
       } else {
         this.loading = true
         let params = {

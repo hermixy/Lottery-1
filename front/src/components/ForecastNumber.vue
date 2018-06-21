@@ -35,7 +35,9 @@
             今日开奖列表
         </p>
         <div :style="{marginTop:'10px'}">
-            <Table border stripe :loading="tableLoading" height="452" :columns="tableColumns" :data="tableData" :class="getTableData" ></Table>
+            <Table border stripe :loading="tableLoading" height="452" :columns="tableColumns"
+             :data="tableData" :class="getTableData"
+             :row-class-name="tableRowClassName"></Table>
         </div>
     </Col>
   </Row>
@@ -43,26 +45,30 @@
 
 <script>
 import http from '../utils/http'
-// import util from '../utils/util'
+import util from '../utils/util'
 
 export default {
   data () {
     return {
       loading: false,
       value_number_select: 'm2',
+      tableLoading: true,
       tableColumns: [
         {
           title: '期号',
           key: 'data_period',
+          align: 'center',
           sortable: true,
           sortType: 'desc'
         },
         {
           title: '开奖号码',
+          align: 'center',
           key: 'data_award'
         },
         {
           title: '类型',
+          align: 'center',
           key: 'data_type'
         }
       ],
@@ -72,19 +78,9 @@ export default {
   computed: {
 
   },
-  mounted: async function () {
-    // let d = util.dataFormat(new Date(), 'yyyyMMdd')
-    // this.$Message.info(d)
-    this.tableLoading = true
-    let params = {
-      date: '180620'
-    }
-    const res = await http.post('/lottery/getOpenData', params)
-    if (http.isSuccess) {
-      this.tableData = res.listData
-      this.tableLoading = false
-      console.log(res.listData)
-    }
+  mounted: function () {
+    this.getOpenData()
+    setInterval(this.getOpenData, 60000)
   },
   methods: {
     toLoading: async function () {
@@ -117,14 +113,96 @@ export default {
         }
       }
       this.loading = false
+    },
+    getOpenData: async function () {
+      let date = util.dataFormat(new Date(), 'yyyyMMdd')
+      this.tableLoading = true
+      let params = {
+        date: date.substring(2)
+      }
+      const res = await http.post('/lottery/getOpenData', params)
+      if (http.isSuccess) {
+        let listData = res.listData
+        const data = []
+        for (let i = 0; i < listData.length; i++) {
+          let type = listData[i].data_type
+          if (type === 'M1') {
+            data.push({
+              data_period: listData[i].data_period,
+              data_award: listData[i].data_award,
+              data_type: type,
+              cellClassName: {
+                data_type: 'table-info-cell-type1'
+              }
+            })
+          } else if (type === 'M2') {
+            data.push({
+              data_period: listData[i].data_period,
+              data_award: listData[i].data_award,
+              data_type: type,
+              cellClassName: {
+                data_type: 'table-info-cell-type2'
+              }
+            })
+          } else if (type === 'M3') {
+            data.push({
+              data_period: listData[i].data_period,
+              data_award: listData[i].data_award,
+              data_type: type,
+              cellClassName: {
+                data_type: 'table-info-cell-type3'
+              }
+            })
+          } else if (type === 'M4') {
+            data.push({
+              data_period: listData[i].data_period,
+              data_award: listData[i].data_award,
+              data_type: type,
+              cellClassName: {
+                data_type: 'table-info-cell-type4'
+              }
+            })
+          } else {
+            data.push({
+              data_period: listData[i].data_period,
+              data_award: listData[i].data_award,
+              data_type: type
+            })
+          }
+        }
+        this.tableData = data
+        this.tableLoading = false
+      }
     }
+
+    // tableRowClassName (row, index) {
+    //   if (row.data_type === 'M1') {
+    //     console.log(row.data_type + ' ' + index)
+    //   }
+    // }
   }
 }
 </script>
 
 <style>
-  .card-title{
-        color: #abafbd;
-        font-size: 20px;
-    }
+  .card-title {
+    color: #abafbd;
+    font-size: 20px;
+  }
+  .ivu-table .table-info-cell-type1 {
+    color: rgb(243, 18, 18);
+    font-weight: bold;
+  }
+  .ivu-table .table-info-cell-type2 {
+    color: rgb(3, 160, 250);
+    font-weight: bold;
+  }
+  .ivu-table .table-info-cell-type3 {
+    color: rgb(239, 243, 4);
+    font-weight: bold;
+  }
+  .ivu-table .table-info-cell-type4 {
+    color: rgb(41, 228, 17);
+    font-weight: bold;
+  }
 </style>

@@ -190,19 +190,19 @@ export default {
     font-size: 20px;
   }
   .ivu-table .table-info-cell-type1 {
-    color: rgb(243, 18, 18);
-    font-weight: bold;
-  }
-  .ivu-table .table-info-cell-type2 {
     color: rgb(3, 160, 250);
     font-weight: bold;
   }
+  .ivu-table .table-info-cell-type2 {
+    color: rgb(243, 18, 18);
+    font-weight: bold;
+  }
   .ivu-table .table-info-cell-type3 {
-    color: rgb(239, 243, 4);
+    color: rgb(50, 167, 35);
     font-weight: bold;
   }
   .ivu-table .table-info-cell-type4 {
-    color: rgb(41, 228, 17);
+    color: rgb(210, 17, 228);
     font-weight: bold;
   }
 </style>

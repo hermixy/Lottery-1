@@ -21,7 +21,10 @@ def upgrade():
 
 
 if __name__ == '__main__':
-    pass
+    # pass
     # createDB()
     # dropDB()
+    # python DBTool.py db init
+    # python DBTool.py db migrate
+    # python DBTool.py db upgrade
     Lottery.manager.run()

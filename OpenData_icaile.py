@@ -72,48 +72,39 @@ def getData():
                 #       "跨度：", tds[23].get_text(), "大小比：", tds[24].get_text(), "奇偶比：", tds[25].get_text(),
                 #       "质合比：", tds[26].get_text())
                 itemDicts = dict()
-                itemDicts[data_period.get_text()] = period_str
+                itemDicts["data_period"] = data_period.get_text()
+                itemDicts["data_award"] = period_str
                 itemDicts["data_value"] = tds[22].get_text()
                 itemDicts["data_span"] = tds[23].get_text()
                 itemDicts["data_size"] = tds[24].get_text()
                 itemDicts["data_qiou"] = tds[25].get_text()
                 itemDicts["data_zhihe"] = tds[26].get_text()
                 dataList.append(itemDicts)
-        print(dataList)
+        # print(dataList)
+        lastNumber = Lottery.OpenNumber.query.order_by(Lottery.OpenNumber.data_period.desc()).first()
+        data_period = 0
+        data_type = ""
+        if lastNumber:
+            data_period = lastNumber.data_period
+        for itemDict in dataList:
+            data_period_item = itemDict['data_period']
+            if int(data_period_item) > int(data_period):
+                print('data_period_item: ', data_period_item, "data_period", int(data_period))
+                if data_period != 0:
+                    pre = str(int(data_period_item) - 1)  # 上一期
+                    for item in dataList:
+                        if pre == item['data_period']:
+                            data_type = DataCombinations.getNumberType(itemDict['data_award'], item['data_award'])
+
+                openNumber = Lottery.OpenNumber(data_period_item, itemDict['data_award'], data_type,
+                                                itemDict['data_value'], itemDict['data_span'], itemDict['data_size'],
+                                                itemDict['data_qiou'], itemDict['data_zhihe'])
+                Lottery.db.session.add(openNumber)
+        Lottery.db.session.commit()
     except KeyError as e:
         print(e)
     finally:
         print("getData ------end------ ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-
-    # lastNumber = Lottery.OpenNumber.query.order_by(Lottery.OpenNumber.data_period.desc()).first()
-    # data_period = 0
-    # data_type = ""
-    # if lastNumber:
-    #     data_period = lastNumber.data_period
-    # for key in sortItemDict:
-    #     if not itemDicts[key]:
-    #         count = key[-2:]
-    #         break
-    #
-    #     if int(key) > int(data_period):
-    #         # numberDicts[key] = itemDicts[key]
-    #         if data_period != 0:
-    #             pre = str(int(key) - 1)  # 上一期
-    #             if pre in itemDicts.keys():
-    #                 data_type = DataCombinations.getNumberType(itemDicts[key], itemDicts[pre])
-    #
-    #         openNumber = Lottery.OpenNumber(key, itemDicts[key], data_type)
-    #         Lottery.db.session.add(openNumber)
-    #         print(key, itemDicts[key])
-    # #
-    # Lottery.db.session.commit()
-    # print(numberDicts)
-    # print(count)
-    # count = str(count)
-
-    # if count == str(87):
-    #     scheduler.remove_job('job_index')
-    # return numberDicts
 
 
 class DataAward(object):

@@ -24,11 +24,21 @@ class OpenNumber(db.Model):
     data_period = db.Column(db.String(20))
     data_award = db.Column(db.String(50))
     data_type = db.Column(db.String(10))
+    data_value = db.Column(db.String(10))
+    data_span = db.Column(db.String(10))
+    data_size = db.Column(db.String(10))
+    data_qiou = db.Column(db.String(10))
+    data_zhihe = db.Column(db.String(10))
 
-    def __init__(self, data_period, data_award, data_type):
+    def __init__(self, data_period, data_award, data_type, data_value, data_span, data_size, data_qiou, data_zhihe):
         self.data_period = data_period
         self.data_award = data_award
         self.data_type = data_type
+        self.data_value = data_value
+        self.data_span = data_span
+        self.data_size = data_size
+        self.data_qiou = data_qiou
+        self.data_zhihe = data_zhihe
 
 
 def cors(func):

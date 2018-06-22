@@ -56,25 +56,15 @@
     <div class="layout">
         <Layout :style="{minHeight: '100vh'}">
             <Sider ref="side1" breakpoint="sm" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                <Menu active-name="1-1" :open-names="['1']" theme="dark" width="auto" :class="menuitemClasses">
-                    <Submenu name="1">
-                        <template slot="title">
-                            <Icon type="happy-outline"></Icon>
-                            玩法选择
-                        </template>
-                        <MenuItem name="1-1" @click.native="toGoForecastNumber">
-                            山东11选5
-                        </MenuItem>
-                    </Submenu>
-                    <Submenu name="2">
-                        <template slot="title">
-                            <Icon type="connection-bars"></Icon>
-                            数据统计
-                        </template>
-                        <MenuItem name="1-2" @click.native="toGoTrendingToday">
-                            <span>今日趋势</span>
-                        </MenuItem>
-                    </Submenu>
+                <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses">
+                    <MenuItem name="1" @click.native="toGoForecastNumber">
+                        <Icon type="happy-outline"></Icon>
+                        <span>山东11选5</span>
+                    </MenuItem>
+                    <MenuItem name="2" @click.native="toGoTrendingToday">
+                        <Icon type="connection-bars"></Icon>
+                        <span>数据统计</span>
+                    </MenuItem>
                 </Menu>
             </Sider>
             <Layout>
@@ -82,7 +72,7 @@
                     <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
                 </Header>
                 <Content :style="{margin: '20px 20px 0', padding: '20px 20px',background: '#fff', minHeight: '260px'}">
-                    <div class="">
+                    <div>
                         <keep-alive>
                             <router-view></router-view>
                         </keep-alive>

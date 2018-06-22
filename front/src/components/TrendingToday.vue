@@ -1,23 +1,55 @@
 <template>
+  <Row :gutter="30">
+    <Col :md="24" :lg="12">
+      <Card>
+        <p slot="title">
+            <Icon type="ios-film-outline"></Icon>
+            近几日出现次数
+        </p>
+        <div style="">
+          <ve-line :data="chartData" :extend="extend" :settings="chartSettings"></ve-line>
+        </div>
+      </Card>
+    </Col>
 
-    <ve-line :data="chartData"></ve-line>
+    <Col :md="24" :lg="12">
+    </Col>
+  </Row>
 
 </template>
 <script>
 export default {
   data () {
+    this.extend = {
+      series: {
+        label: {
+          normal: {
+            show: false
+          }
+        }
+      }
+    }
+    this.chartSettings = {
+      // xAxisType: 'time'
+    }
     return {
       chartData: {
-        columns: ['类型', '今日', '昨日'],
+        columns: ['类型', 'M0', 'M1', 'M2', 'M3', 'M4'],
         rows: [
-          { '类型': 'M0', '今日': 13, '昨日': 93 },
-          { '类型': 'M1', '今日': 35, '昨日': 32 },
-          { '类型': 'M2', '今日': 23, '昨日': 26 },
-          { '类型': 'M3', '今日': 72, '昨日': 14 },
-          { '类型': 'M4', '今日': 37, '昨日': 49 }
+          { '类型': '今日', 'M0': 13, 'M1': 23, 'M2': 32, 'M3': 14, 'M4': 49 },
+          { '类型': '昨日', 'M0': 55, 'M1': 44, 'M2': 78, 'M3': 23, 'M4': 88 },
+          { '类型': '0619', 'M0': 33, 'M1': 3, 'M2': 67, 'M3': 55, 'M4': 10 },
+          { '类型': '0618', 'M0': 25, 'M1': 54, 'M2': 28, 'M3': 43, 'M4': 38 },
+          { '类型': '0617', 'M0': 13, 'M1': 23, 'M2': 32, 'M3': 14, 'M4': 49 },
+          { '类型': '0616', 'M0': 55, 'M1': 44, 'M2': 78, 'M3': 23, 'M4': 88 },
+          { '类型': '0615', 'M0': 33, 'M1': 3, 'M2': 67, 'M3': 55, 'M4': 10 },
+          { '类型': '0614', 'M0': 25, 'M1': 54, 'M2': 28, 'M3': 43, 'M4': 38 },
+          { '类型': '0613', 'M0': 13, 'M1': 23, 'M2': 32, 'M3': 14, 'M4': 49 }
         ]
       }
     }
+  },
+  mounted: function () {
   }
 }
 </script>

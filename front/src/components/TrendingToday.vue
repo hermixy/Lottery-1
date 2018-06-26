@@ -7,7 +7,12 @@
             近几日出现次数
         </p>
         <div style="">
-          <ve-line :data="chartData" :extend="extend" :settings="chartSettings"></ve-line>
+          <ve-line
+            :data="chartData"
+            :extend="extend"
+            :settings="chartSettings"
+            ref="chart1">
+          </ve-line>
         </div>
       </Card>
     </Col>
@@ -48,6 +53,9 @@ export default {
         ]
       }
     }
+  },
+  watch: {
+    // this.$refs[`chart1`].echarts.resize()
   },
   mounted: function () {
   }

@@ -3,6 +3,7 @@
 from functools import wraps
 from flask import Flask, url_for, render_template, redirect, request, jsonify, Response, make_response
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from flask_script import Manager, Shell
 from flask_migrate import Migrate
 import DataCombinations

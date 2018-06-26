@@ -6,9 +6,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager, Shell
 from flask_migrate import Migrate
 import DataCombinations
-import OpenData
+import OpenData_icaile
 
-app = Flask(__name__)
+app = Flask(__name__,
+            static_folder="./dist/static",
+            template_folder="./dist")
 app.config['JSON_AS_ASCII'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/lotterys.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -54,8 +56,9 @@ def cors(func):
     return wrapper_func
 
 
-@app.route('/')
-def hello_world():
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
     return render_template('index.html')
 
 
@@ -66,7 +69,7 @@ def get_open_info():
         date = request.form['date']
         openNumber = OpenNumber.query.filter(
             OpenNumber.data_period.like(date + "%") if date is not None else "").all()
-        numberJson = OpenData.getOpenNumbers(openNumber)
+        numberJson = OpenData_icaile.getOpenNumbers(openNumber)
         return return2Json(numberJson)
     return '暂无数据'
 

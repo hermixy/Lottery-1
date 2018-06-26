@@ -6,15 +6,16 @@ import App from './App.vue'
 import router from './router'
 // import Routers from './src/router/index.js'
 import iView from 'iview'
-import ElementUI from 'element-ui'
-import VCharts from 'v-charts'
-import 'element-ui/lib/theme-chalk/index.css'
+// import ElementUI from 'element-ui'
+// import VCharts from 'v-charts'
+import VeLine from 'v-charts/lib/line.common'
+// import 'element-ui/lib/theme-chalk/index.css'
 import 'iview/dist/styles/iview.css'
 
 // Vue.use(VueRouter)
 Vue.use(iView)
-Vue.use(ElementUI)
-Vue.use(VCharts)
+// Vue.use(ElementUI)
+Vue.component(VeLine.name, VeLine)
 
 Vue.config.productionTip = false
 

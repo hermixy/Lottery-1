@@ -1,12 +1,12 @@
 <template>
   <Row :gutter="30">
-    <Col :md="24" :lg="10">
+    <Col :md="8" :lg="9">
         <Row>
-            <Col :md="12" :lg="24">
+            <Col :md="24" :lg="24">
                 <Row type="flex" align="middle">
                     <Col span="18">
                         <Input v-model="value_number" placeholder="号码格式01 02 07 09 10" maxlength="20" size="large">
-                            <Select v-model="value_number_select" slot="append" style="width: 70px">
+                            <Select v-model="value_number_select" slot="append" style="width: 66px">
                                 <Option value="m0">M0</Option>
                                 <Option value="m1">M1</Option>
                                 <Option value="m2">M2</Option>
@@ -16,26 +16,26 @@
                         </Input>
                     </Col>
                     <Col span="6">
-                        <Button type="primary" :loading="loading" @click="toLoading" :style="{width: '85px', margin:'5px'}">
+                        <Button type="primary" :loading="loading" @click="toLoading" :style="{width: '80px', margin:'5px'}">
                             <span v-if="!loading">执行</span>
                             <span v-else>加载中</span>
                         </Button>
                     </Col>
                 </Row>
             </Col>
-            <Col :md="12" :lg="24">
+            <Col :md="24" :lg="24">
                 <Input v-model="value_numbers" :disabled="disabled" type="textarea" :rows="20" :style="{marginTop:'20px'}"
                  placeholder="预测号码" readonly=true></Input>
             </Col>
             </Row>
     </Col>
-    <Col :md="24" :lg="14">
-        <p class="card-title">
+    <Col :md="16" :lg="15">
+        <p class="card-title" :style="{marginTop:'8px'}">
             <Icon type="android-list"></Icon>
             今日开奖列表
         </p>
         <div :style="{marginTop:'10px'}">
-            <Table border stripe :loading="tableLoading" height="452" :columns="tableColumns"
+            <Table border stripe :loading="tableLoading" height="444" :columns="tableColumns"
              :data="tableData" :class="getTableData"
              :row-class-name="tableRowClassName"></Table>
         </div>
@@ -59,17 +59,39 @@ export default {
           key: 'data_period',
           align: 'center',
           sortable: true,
-          sortType: 'desc'
+          sortType: 'desc',
+          fixed: 'left',
+          width: 100
         },
         {
           title: '开奖号码',
           align: 'center',
-          key: 'data_award'
+          key: 'data_award',
+          width: 160
         },
         {
           title: '类型',
           align: 'center',
-          key: 'data_type'
+          key: 'data_type',
+          width: 100
+        },
+        {
+          title: '大小比',
+          align: 'center',
+          key: 'data_size',
+          width: 100
+        },
+        {
+          title: '奇偶比',
+          align: 'center',
+          key: 'data_qiou',
+          width: 100
+        },
+        {
+          title: '质合比',
+          align: 'center',
+          key: 'data_zhihe',
+          width: 100
         }
       ],
       tableData: []
@@ -126,47 +148,67 @@ export default {
         const data = []
         for (let i = 0; i < listData.length; i++) {
           let type = listData[i].data_type
+          let period = listData[i].data_period
+          let award = listData[i].data_award
+          let size = listData[i].data_size
+          let qiou = listData[i].data_qiou
+          let zhihe = listData[i].data_zhihe
           if (type === 'M1') {
             data.push({
-              data_period: listData[i].data_period,
-              data_award: listData[i].data_award,
+              data_period: period,
+              data_award: award,
               data_type: type,
+              data_size: size,
+              data_qiou: qiou,
+              data_zhihe: zhihe,
               cellClassName: {
                 data_type: 'table-info-cell-type1'
               }
             })
           } else if (type === 'M2') {
             data.push({
-              data_period: listData[i].data_period,
-              data_award: listData[i].data_award,
+              data_period: period,
+              data_award: award,
               data_type: type,
+              data_size: size,
+              data_qiou: qiou,
+              data_zhihe: zhihe,
               cellClassName: {
                 data_type: 'table-info-cell-type2'
               }
             })
           } else if (type === 'M3') {
             data.push({
-              data_period: listData[i].data_period,
-              data_award: listData[i].data_award,
+              data_period: period,
+              data_award: award,
               data_type: type,
+              data_size: size,
+              data_qiou: qiou,
+              data_zhihe: zhihe,
               cellClassName: {
                 data_type: 'table-info-cell-type3'
               }
             })
           } else if (type === 'M4') {
             data.push({
-              data_period: listData[i].data_period,
-              data_award: listData[i].data_award,
+              data_period: period,
+              data_award: award,
               data_type: type,
+              data_size: size,
+              data_qiou: qiou,
+              data_zhihe: zhihe,
               cellClassName: {
                 data_type: 'table-info-cell-type4'
               }
             })
           } else {
             data.push({
-              data_period: listData[i].data_period,
-              data_award: listData[i].data_award,
-              data_type: type
+              data_period: period,
+              data_award: award,
+              data_type: type,
+              data_size: size,
+              data_qiou: qiou,
+              data_zhihe: zhihe
             })
           }
         }

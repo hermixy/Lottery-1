@@ -144,7 +144,7 @@ def getOpenNumbers(openNumber):
 
 
 def getRandom():
-    return random.randint(10, 20)
+    return random.randint(10, 30)
 
 
 def start():
@@ -160,7 +160,7 @@ def stop():
 if __name__ == '__main__':
     # getData()
     scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
-    scheduler.add_job(start, 'cron', hour=8, minute=26)
+    scheduler.add_job(start, 'cron', hour=8, minute=27, second=getRandom())
     scheduler.add_job(stop, 'cron', hour=23)
     #
     scheduler.start()

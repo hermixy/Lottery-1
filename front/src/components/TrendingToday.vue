@@ -11,6 +11,7 @@
             :data="chartData"
             :extend="extend"
             :settings="chartSettings"
+            :loading="loading"
             ref="chart1">
           </ve-line>
         </div>

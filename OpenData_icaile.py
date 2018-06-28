@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 
-from requests_html import HTMLSession
+# from requests_html import HTMLSession
 import time
-from datetime import datetime
+# from datetime import datetime
 import json
 import random
 import base64
@@ -11,20 +11,22 @@ import Lottery
 import DataCombinations
 import requests
 from bs4 import BeautifulSoup
+import logging
 
 # from selenium import webdriver
 # from selenium.webdriver.chrome.options import Options
 
-session = HTMLSession()
+# session = HTMLSession()
 scheduler = BlockingScheduler()
-
+LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
+logging.basicConfig(filename='OpenData_icaile.log', level=logging.DEBUG, format=LOG_FORMAT)
 
 # IS_CENTOS = False
 
 # numberDicts = dict()
 
 def getData():
-    print("getData -----start------- ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    logging.info("getData -----start------- ")
     # if IS_CENTOS:
     #     # CentOS 兼容配置开始-------------------------------#
     #     options = Options()
@@ -89,7 +91,7 @@ def getData():
         for itemDict in dataList:
             data_period_item = itemDict['data_period']
             if int(data_period_item) > int(data_period):
-                print('data_period_item: ', data_period_item, "data_period", int(data_period))
+                logging.info('data_period_item: ', data_period_item, "data_period", int(data_period))
                 if data_period != 0:
                     pre = str(int(data_period_item) - 1)  # 上一期
                     for item in dataList:
@@ -101,10 +103,10 @@ def getData():
                                                 itemDict['data_qiou'], itemDict['data_zhihe'])
                 Lottery.db.session.add(openNumber)
         Lottery.db.session.commit()
-    except KeyError as e:
-        print(e)
+    except Exception as e:
+        logging.error(e)
     finally:
-        print("getData ------end------ ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        logging.info("getData ------end------ ")
 
 
 class DataAward(object):
@@ -149,12 +151,12 @@ def getRandom():
 
 def start():
     scheduler.add_job(getData, 'interval', minutes=10, id='job_index')
-    print("start ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    logging.info("start ")
 
 
 def stop():
     scheduler.remove_job('job_index')
-    print("stop ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    logging.info("stop ")
 
 
 if __name__ == '__main__':

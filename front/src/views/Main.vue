@@ -71,7 +71,7 @@
                 <Header :style="{padding: 0}" class="layout-header-bar">
                     <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
                 </Header>
-                <Content :style="{margin: '20px 20px 0', padding: '20px 20px',background: '#fff', minHeight: '260px'}">
+                <Content :style="{margin: '15px 15px 0', padding: '20px 20px',background: '#fff', minHeight: '260px'}">
                     <div>
                         <keep-alive>
                             <router-view></router-view>

@@ -1,46 +1,64 @@
 <template>
+<div>
+  <Row :gutter="30" type="flex" align="middle">
+    <Col :md="24" :lg="9">
+        <Row type="flex" align="middle">
+            <Col span="18">
+                <Input v-model="value_number" placeholder="号码格式01 02 07 09 10" maxlength="20" size="large">
+                    <Select v-model="value_number_select" slot="append" style="width: 66px">
+                        <Option value="m0">M0</Option>
+                        <Option value="m1">M1</Option>
+                        <Option value="m2">M2</Option>
+                        <Option value="m3">M3</Option>
+                        <Option value="m4">M4</Option>
+                    </Select>
+                </Input>
+            </Col>
+            <Col span="6">
+                <Button type="primary" :loading="loading" @click="toLoading" :style="{width: '80px', margin:'5px'}">
+                    <span v-if="!loading">执行</span>
+                    <span v-else>加载中</span>
+                </Button>
+            </Col>
+        </Row>
+    </Col>
+    <Col :md="24" :lg="15">
+          <Button type="primary" @click="sxDialog = true">筛选</Button>
+          <Modal
+              v-model="sxDialog"
+              title="筛选条件"
+              @on-ok="ok"
+              @on-cancel="cancel">
+              <p>Content of dialog</p>
+              <p>Content of dialog</p>
+              <p>Content of dialog</p>
+          </Modal>
+    </Col>
+  </Row>
+  <br>
   <Row :gutter="30">
     <Col :md="8" :lg="9">
-        <Row>
-            <Col :md="24" :lg="24">
-                <Row type="flex" align="middle">
-                    <Col span="18">
-                        <Input v-model="value_number" placeholder="号码格式01 02 07 09 10" maxlength="20" size="large">
-                            <Select v-model="value_number_select" slot="append" style="width: 66px">
-                                <Option value="m0">M0</Option>
-                                <Option value="m1">M1</Option>
-                                <Option value="m2">M2</Option>
-                                <Option value="m3">M3</Option>
-                                <Option value="m4">M4</Option>
-                            </Select>
-                        </Input>
-                    </Col>
-                    <Col span="6">
-                        <Button type="primary" :loading="loading" @click="toLoading" :style="{width: '80px', margin:'5px'}">
-                            <span v-if="!loading">执行</span>
-                            <span v-else>加载中</span>
-                        </Button>
-                    </Col>
-                </Row>
-            </Col>
-            <Col :md="24" :lg="24">
-                <Input v-model="value_numbers" :disabled="disabled" type="textarea" :rows="20" :style="{marginTop:'20px'}"
-                 placeholder="预测号码" readonly=true></Input>
-            </Col>
-            </Row>
+        <Card :style="{padding: '0px, 0px'}">
+            <p slot="title">组选号码</p>
+            <Input v-model="value_numbers" :disabled="disabled" type="textarea" :rows="17"
+            placeholder="预测号码" readonly=true :style="{width: '100%'}"></Input>
+            </br>
+            <p :style="{marginTop:'10px', textAlign: 'center'}">共{{zhuNum}}组</p>
+          </Card>
     </Col>
     <Col :md="16" :lg="15">
-        <p class="card-title" :style="{marginTop:'8px'}">
+        <p class="card-title" :style="{}">
             <Icon type="android-list"></Icon>
             今日开奖列表
         </p>
         <div :style="{marginTop:'10px'}">
             <Table border stripe :loading="tableLoading" height="444" :columns="tableColumns"
-             :data="tableData" :class="getTableData"
-             :row-class-name="tableRowClassName"></Table>
+            :data="tableData" :class="getTableData"
+            :row-class-name="tableRowClassName"></Table>
         </div>
     </Col>
   </Row>
+</div>
 </template>
 
 <script>
@@ -52,7 +70,9 @@ export default {
     return {
       loading: false,
       value_number_select: 'm2',
+      sxDialog: false,
       tableLoading: true,
+      zhuNum: '0',
       tableColumns: [
         {
           title: '期号',
@@ -102,9 +122,15 @@ export default {
   },
   mounted: function () {
     this.getOpenData()
-    setInterval(this.getOpenData, 60000)
+    setInterval(this.getOpenData, 30000)
   },
   methods: {
+    ok () {
+      // this.$Message.info('Clicked ok')
+    },
+    cancel () {
+      this.$Message.info('取消筛选')
+    },
     toLoading: async function () {
       this.loading = true
       let number = this.value_number
@@ -130,6 +156,7 @@ export default {
             content = content + listData[i].number
             index++
           }
+          this.zhuNum = index
           this.value_numbers = content
           // this.disabled = true
         }
@@ -227,6 +254,12 @@ export default {
 </script>
 
 <style>
+  input:focus, textarea:focus {
+      outline: none;
+  }
+  textarea {
+    resize: none;
+  }
   .card-title {
     color: #abafbd;
     font-size: 20px;

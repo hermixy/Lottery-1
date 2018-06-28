@@ -27,18 +27,96 @@
           <Modal
               v-model="sxDialog"
               title="筛选条件"
+              :styles="{top: '20px'}"
+              width="600"
               @on-ok="ok"
               @on-cancel="cancel">
-              <p>Content of dialog</p>
-              <p>Content of dialog</p>
-              <p>Content of dialog</p>
+              <p style="font-weight: bold">类型:</p>
+              <Card :style="{marginTop:'10px'}">
+                <CheckboxGroup v-model="sx_type" size="large">
+                    <Checkbox label="M0">
+                        <span>M0</span>
+                    </Checkbox>
+                    <Checkbox label="M1">
+                        <span>M1</span>
+                    </Checkbox>
+                    <Checkbox label="M2">
+                        <span>M2</span>
+                    </Checkbox>
+                    <Checkbox label="M3">
+                        <span>M3</span>
+                    </Checkbox>
+                    <Checkbox label="M4">
+                        <span>M4</span>
+                    </Checkbox>
+                </CheckboxGroup>
+              </Card>
+              <br>
+              <p style="font-weight: bold">筛除号码:</p>
+              <Card :style="{marginTop:'10px'}">
+                <CheckboxGroup v-model="sx_sc" size="large">
+                    <Checkbox label="01"></Checkbox>
+                    <Checkbox label="02"></Checkbox>
+                    <Checkbox label="03"></Checkbox>
+                    <Checkbox label="04"></Checkbox>
+                    <Checkbox label="05"></Checkbox>
+                    <Checkbox label="06"></Checkbox>
+                    <Checkbox label="07"></Checkbox>
+                    <Checkbox label="08"></Checkbox>
+                    <Checkbox label="09"></Checkbox>
+                    <Checkbox label="10"></Checkbox>
+                    <Checkbox label="11"></Checkbox>
+                </CheckboxGroup>
+              </Card>
+              <br>
+              <p style="font-weight: bold">定胆号码:</p>
+              <Card :style="{marginTop:'10px'}">
+                <CheckboxGroup v-model="sx_dd" size="large">
+                    <Checkbox label="01"></Checkbox>
+                    <Checkbox label="02"></Checkbox>
+                    <Checkbox label="03"></Checkbox>
+                    <Checkbox label="04"></Checkbox>
+                    <Checkbox label="05"></Checkbox>
+                    <Checkbox label="06"></Checkbox>
+                    <Checkbox label="07"></Checkbox>
+                    <Checkbox label="08"></Checkbox>
+                    <Checkbox label="09"></Checkbox>
+                    <Checkbox label="10"></Checkbox>
+                    <Checkbox label="11"></Checkbox>
+                </CheckboxGroup>
+              </Card>
+              <br>
+              <p style="font-weight: bold">筛除大小比:</p>
+              <Card :style="{marginTop:'10px'}">
+                <CheckboxGroup v-model="sx_dxb" size="large">
+                    <Checkbox label="0 : 5 "></Checkbox>
+                    <Checkbox label="1 : 4"></Checkbox>
+                    <Checkbox label="2 : 3"></Checkbox>
+                    <Checkbox label="3 : 2"></Checkbox>
+                    <Checkbox label="4 : 1"></Checkbox>
+                    <Checkbox label="5 : 0"></Checkbox>
+                </CheckboxGroup>
+              </Card>
+              <br>
+              <p style="font-weight: bold">筛除奇偶比:</p>
+              <Card :style="{marginTop:'10px'}">
+                <CheckboxGroup v-model="sx_qob" size="large">
+                    <Checkbox label="0 : 5"></Checkbox>
+                    <Checkbox label="1 : 4"></Checkbox>
+                    <Checkbox label="2 : 3"></Checkbox>
+                    <Checkbox label="3 : 2"></Checkbox>
+                    <Checkbox label="4 : 1"></Checkbox>
+                    <Checkbox label="5 : 0"></Checkbox>
+                </CheckboxGroup>
+              </Card>
+              <br>
           </Modal>
     </Col>
   </Row>
   <br>
   <Row :gutter="30">
     <Col :md="8" :lg="9">
-        <Card :style="{padding: '0px, 0px'}">
+        <Card :style="{marginTop: '10dp', padding: '0px, 0px'}">
             <p slot="title">组选号码</p>
             <Input v-model="value_numbers" :disabled="disabled" type="textarea" :rows="17"
             placeholder="预测号码" readonly=true :style="{width: '100%'}"></Input>
@@ -46,8 +124,8 @@
             <p :style="{marginTop:'10px', textAlign: 'center'}">共{{zhuNum}}组</p>
           </Card>
     </Col>
-    <Col :md="16" :lg="15">
-        <p class="card-title" :style="{}">
+    <Col :md="16" :lg="15" >
+        <p class="card-title">
             <Icon type="android-list"></Icon>
             今日开奖列表
         </p>

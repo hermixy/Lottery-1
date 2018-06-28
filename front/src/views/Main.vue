@@ -9,7 +9,25 @@
     .layout-header-bar{
         background: #fff;
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
+        position: relative;
     }
+    .header-avator-con{
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding-right: 14px;
+    }
+    .main-user-name{
+                        display: inline-block;
+                        width: 80px;
+                        word-break: keep-all;
+                        white-space: nowrap;
+                        vertical-align: middle;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-align: right;
+                    }
     .layout-logo-left{
         width: 90%;
         height: 30px;
@@ -70,8 +88,23 @@
             <Layout>
                 <Header :style="{padding: 0}" class="layout-header-bar">
                     <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
+                    <div class="header-avator-con">
+                        <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
+                            <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">
+                                <a href="javascript:void(0)">
+                                    <span class="main-user-name">{{ userName }}</span>
+                                    <Icon type="arrow-down-b"></Icon>
+                                </a>
+                                <DropdownMenu slot="list">
+                                    <!-- <DropdownItem name="ownSpace">个人中心</DropdownItem> -->
+                                    <DropdownItem name="loginout" divided>退出登录</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                           <Avatar :style="{background: '#f56a00', marginLeft: '10px'}" size="large" icon="person">{{ userName }}</Avatar>
+                        </Row>
+                    </div>
                 </Header>
-                <Content :style="{margin: '15px 15px 0', padding: '20px 20px',background: '#fff', minHeight: '260px'}">
+                <Content :style="{margin: '12px', padding: '20px 20px',background: '#fff', minHeight: '260px'}">
                     <div>
                         <keep-alive>
                             <router-view></router-view>
@@ -87,7 +120,8 @@
 export default {
   data () {
     return {
-      isCollapsed: false
+      isCollapsed: false,
+      userName: '我就是我'
     }
   },
   computed: {

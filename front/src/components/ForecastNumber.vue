@@ -1,7 +1,7 @@
 <template>
 <div>
   <Row :gutter="30" type="flex" align="middle">
-    <Col :md="24" :lg="9">
+    <Col :md="24" :lg="9" :style="{marginTop: '20px'}">
         <Row type="flex" align="middle">
             <Col span="18">
                 <Input v-model="value_number" placeholder="号码格式01 02 07 09 10" maxlength="20" size="large">
@@ -22,7 +22,7 @@
             </Col>
         </Row>
     </Col>
-    <Col :md="24" :lg="15">
+    <Col :md="24" :lg="15" :style="{marginTop: '20px'}">
           <Button type="primary" @click="sxDialog = true">筛选</Button>
           <Modal
               v-model="sxDialog"

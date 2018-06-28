@@ -97,14 +97,14 @@
                                 </a>
                                 <DropdownMenu slot="list">
                                     <!-- <DropdownItem name="ownSpace">个人中心</DropdownItem> -->
-                                    <DropdownItem name="loginout" divided>退出登录</DropdownItem>
+                                    <DropdownItem name="loginout">退出登录</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                            <Avatar :style="{background: '#f56a00', marginLeft: '10px'}" size="large" icon="person">{{ userName }}</Avatar>
                         </Row>
                     </div>
                 </Header>
-                <Content :style="{margin: '12px', padding: '20px 20px',background: '#fff', minHeight: '260px'}">
+                <Content :style="{margin: '12px', padding: '0px 20px 20px',background: '#fff', minHeight: '260px'}">
                     <div>
                         <keep-alive>
                             <router-view></router-view>

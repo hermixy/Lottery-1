@@ -23,94 +23,104 @@
         </Row>
     </Col>
     <Col :md="24" :lg="15" :style="{marginTop: '20px'}">
-          <Button type="primary" @click="sxDialog = true">筛选</Button>
-          <Modal
-              v-model="sxDialog"
-              title="筛选条件"
-              :styles="{top: '20px'}"
-              width="600"
-              @on-ok="ok"
-              @on-cancel="cancel">
-              <p style="font-weight: bold">类型:</p>
-              <Card :style="{marginTop:'10px'}">
-                <CheckboxGroup v-model="sx_type" size="large">
-                    <Checkbox label="M0">
-                        <span>M0</span>
-                    </Checkbox>
-                    <Checkbox label="M1">
-                        <span>M1</span>
-                    </Checkbox>
-                    <Checkbox label="M2">
-                        <span>M2</span>
-                    </Checkbox>
-                    <Checkbox label="M3">
-                        <span>M3</span>
-                    </Checkbox>
-                    <Checkbox label="M4">
-                        <span>M4</span>
-                    </Checkbox>
-                </CheckboxGroup>
-              </Card>
-              <br>
-              <p style="font-weight: bold">筛除号码:</p>
-              <Card :style="{marginTop:'10px'}">
-                <CheckboxGroup v-model="sx_sc" size="large">
-                    <Checkbox label="01"></Checkbox>
-                    <Checkbox label="02"></Checkbox>
-                    <Checkbox label="03"></Checkbox>
-                    <Checkbox label="04"></Checkbox>
-                    <Checkbox label="05"></Checkbox>
-                    <Checkbox label="06"></Checkbox>
-                    <Checkbox label="07"></Checkbox>
-                    <Checkbox label="08"></Checkbox>
-                    <Checkbox label="09"></Checkbox>
-                    <Checkbox label="10"></Checkbox>
-                    <Checkbox label="11"></Checkbox>
-                </CheckboxGroup>
-              </Card>
-              <br>
-              <p style="font-weight: bold">定胆号码:</p>
-              <Card :style="{marginTop:'10px'}">
-                <CheckboxGroup v-model="sx_dd" size="large">
-                    <Checkbox label="01"></Checkbox>
-                    <Checkbox label="02"></Checkbox>
-                    <Checkbox label="03"></Checkbox>
-                    <Checkbox label="04"></Checkbox>
-                    <Checkbox label="05"></Checkbox>
-                    <Checkbox label="06"></Checkbox>
-                    <Checkbox label="07"></Checkbox>
-                    <Checkbox label="08"></Checkbox>
-                    <Checkbox label="09"></Checkbox>
-                    <Checkbox label="10"></Checkbox>
-                    <Checkbox label="11"></Checkbox>
-                </CheckboxGroup>
-              </Card>
-              <br>
-              <p style="font-weight: bold">筛除大小比:</p>
-              <Card :style="{marginTop:'10px'}">
-                <CheckboxGroup v-model="sx_dxb" size="large">
-                    <Checkbox label="0 : 5 "></Checkbox>
-                    <Checkbox label="1 : 4"></Checkbox>
-                    <Checkbox label="2 : 3"></Checkbox>
-                    <Checkbox label="3 : 2"></Checkbox>
-                    <Checkbox label="4 : 1"></Checkbox>
-                    <Checkbox label="5 : 0"></Checkbox>
-                </CheckboxGroup>
-              </Card>
-              <br>
-              <p style="font-weight: bold">筛除奇偶比:</p>
-              <Card :style="{marginTop:'10px'}">
-                <CheckboxGroup v-model="sx_qob" size="large">
-                    <Checkbox label="0 : 5"></Checkbox>
-                    <Checkbox label="1 : 4"></Checkbox>
-                    <Checkbox label="2 : 3"></Checkbox>
-                    <Checkbox label="3 : 2"></Checkbox>
-                    <Checkbox label="4 : 1"></Checkbox>
-                    <Checkbox label="5 : 0"></Checkbox>
-                </CheckboxGroup>
-              </Card>
-              <br>
-          </Modal>
+        <Row type="flex" align="middle" :gutter="10">
+          <Col>
+            <i-switch v-model="sxSwitch" @on-change="sxSwichChange">
+              <span slot="open">开</span>
+              <span slot="close">关</span>
+            </i-switch>
+          </Col>
+          <Col>
+            <Button :disabled="sxBtnDisable"  @click="sxDialogClick">筛选</Button>
+            <Modal
+                v-model="sxDialog"
+                title="筛选条件"
+                :styles="{top: '20px'}"
+                width="600"
+                @on-ok="ok"
+                @on-cancel="cancel">
+                <p style="font-weight: bold">类型:</p>
+                <Card :style="{marginTop:'10px'}">
+                  <CheckboxGroup v-model="sx_type" size="large" @on-change="sxTypeChange">
+                      <Checkbox label="M0">
+                          <span>M0</span>
+                      </Checkbox>
+                      <Checkbox label="M1">
+                          <span>M1</span>
+                      </Checkbox>
+                      <Checkbox label="M2">
+                          <span>M2</span>
+                      </Checkbox>
+                      <Checkbox label="M3">
+                          <span>M3</span>
+                      </Checkbox>
+                      <Checkbox label="M4">
+                          <span>M4</span>
+                      </Checkbox>
+                  </CheckboxGroup>
+                </Card>
+                <br>
+                <p style="font-weight: bold">筛除号码:</p>
+                <Card :style="{marginTop:'10px'}">
+                  <CheckboxGroup v-model="sx_sc" size="large" @on-change="sxShaiChuChange">
+                      <Checkbox label="01"></Checkbox>
+                      <Checkbox label="02"></Checkbox>
+                      <Checkbox label="03"></Checkbox>
+                      <Checkbox label="04"></Checkbox>
+                      <Checkbox label="05"></Checkbox>
+                      <Checkbox label="06"></Checkbox>
+                      <Checkbox label="07"></Checkbox>
+                      <Checkbox label="08"></Checkbox>
+                      <Checkbox label="09"></Checkbox>
+                      <Checkbox label="10"></Checkbox>
+                      <Checkbox label="11"></Checkbox>
+                  </CheckboxGroup>
+                </Card>
+                <br>
+                <p style="font-weight: bold">定胆号码:</p>
+                <Card :style="{marginTop:'10px'}">
+                  <CheckboxGroup v-model="sx_dd" size="large" @on-change="sxDingDanChange">
+                      <Checkbox label="01"></Checkbox>
+                      <Checkbox label="02"></Checkbox>
+                      <Checkbox label="03"></Checkbox>
+                      <Checkbox label="04"></Checkbox>
+                      <Checkbox label="05"></Checkbox>
+                      <Checkbox label="06"></Checkbox>
+                      <Checkbox label="07"></Checkbox>
+                      <Checkbox label="08"></Checkbox>
+                      <Checkbox label="09"></Checkbox>
+                      <Checkbox label="10"></Checkbox>
+                      <Checkbox label="11"></Checkbox>
+                  </CheckboxGroup>
+                </Card>
+                <br>
+                <p style="font-weight: bold">筛除大小比:</p>
+                <Card :style="{marginTop:'10px'}">
+                  <CheckboxGroup v-model="sx_dxb" size="large" @on-change="sxDaXiaoBiChange">
+                      <Checkbox label="0 : 5 "></Checkbox>
+                      <Checkbox label="1 : 4"></Checkbox>
+                      <Checkbox label="2 : 3"></Checkbox>
+                      <Checkbox label="3 : 2"></Checkbox>
+                      <Checkbox label="4 : 1"></Checkbox>
+                      <Checkbox label="5 : 0"></Checkbox>
+                  </CheckboxGroup>
+                </Card>
+                <br>
+                <p style="font-weight: bold">筛除奇偶比:</p>
+                <Card :style="{marginTop:'10px'}">
+                  <CheckboxGroup v-model="sx_qob" size="large" @on-change="sxQiOuBiChange">
+                      <Checkbox label="0 : 5"></Checkbox>
+                      <Checkbox label="1 : 4"></Checkbox>
+                      <Checkbox label="2 : 3"></Checkbox>
+                      <Checkbox label="3 : 2"></Checkbox>
+                      <Checkbox label="4 : 1"></Checkbox>
+                      <Checkbox label="5 : 0"></Checkbox>
+                  </CheckboxGroup>
+                </Card>
+                <br>
+            </Modal>
+          </Col>
+        </Row>
     </Col>
   </Row>
   <br>
@@ -150,6 +160,8 @@ export default {
       value_number_select: 'm2',
       sxDialog: false,
       tableLoading: true,
+      sxSwitch: false,
+      sxBtnDisable: true,
       zhuNum: '0',
       tableColumns: [
         {
@@ -203,11 +215,49 @@ export default {
     setInterval(this.getOpenData, 30000)
   },
   methods: {
+    sxSwichChange (status) {
+      this.sxBtnDisable = !status
+    },
+    sxDialogClick () {
+      this.sxDialog = true
+      this.sx_type = []
+      this.sx_sc = []
+      this.sx_dd = []
+      this.sx_dxb = []
+      this.sx_qob = []
+    },
+    sxTypeChange (data) {
+      this.sx_type = data
+      console.log(data)
+      console.log(this.sx_type)
+    },
+    sxShaiChuChange (data) {
+      this.sx_sc = data
+    },
+    sxDingDanChange (data) {
+      this.sx_dd = data
+    },
+    sxDaXiaoBiChange (data) {
+      this.sx_dxb = data
+    },
+    sxQiOuBiChange (data) {
+      this.sx_qob = data
+    },
     ok () {
-      // this.$Message.info('Clicked ok')
+      // let sxType = this.sx_type
+      // for (let i = 0; i < sxType.length; i++) {
+      //   console.log(sxType[i])
+      // }
+      // console.log(sxType)
+      // console.log(this.sx_sc)
+      // console.log(this.sx_dd)
+      // console.log(this.sx_dxb)
+      // console.log(this.sx_qob)
     },
     cancel () {
-      this.$Message.info('取消筛选')
+      this.$Message.info('您的筛选操作取消啦')
+      this.sxBtnDisable = true
+      this.sxSwitch = false
     },
     toLoading: async function () {
       this.loading = true

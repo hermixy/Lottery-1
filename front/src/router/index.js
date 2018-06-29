@@ -18,13 +18,15 @@ export default new Router({
       children: [
         {
           path: 'trendingToday',
-          name: '数据统计',
-          component: TrendingToday
+          name: 'trendingToday',
+          component: TrendingToday,
+          meta: { title: '数据统计' }
         },
         {
           path: 'forecastNumber',
           name: '玩法选择',
-          component: ForecastNumber
+          component: ForecastNumber,
+          meta: { title: '11选5辅助' }
         }
       ]
     },

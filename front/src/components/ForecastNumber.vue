@@ -4,7 +4,7 @@
     <Col :md="24" :lg="9" :style="{marginTop: '20px'}">
         <Row type="flex" align="middle">
             <Col span="18">
-                <Input v-model="value_number" placeholder="号码格式01 02 07 09 10" maxlength="20" size="large">
+                <Input v-model="value_number" placeholder="号码格式01 02 07 09 10" :maxlength="20" size="large">
                     <Select v-model="value_number_select" slot="append" style="width: 66px">
                         <Option value="m0">M0</Option>
                         <Option value="m1">M1</Option>
@@ -42,19 +42,19 @@
                 <p style="font-weight: bold">类型:</p>
                 <Card :style="{marginTop:'10px'}">
                   <CheckboxGroup v-model="sx_type" size="large" @on-change="sxTypeChange">
-                      <Checkbox label="M0">
+                      <Checkbox label="M0" true-value="true">
                           <span>M0</span>
                       </Checkbox>
-                      <Checkbox label="M1">
+                      <Checkbox label="M1" true-value="true">
                           <span>M1</span>
                       </Checkbox>
-                      <Checkbox label="M2">
+                      <Checkbox label="M2" true-value="true">
                           <span>M2</span>
                       </Checkbox>
-                      <Checkbox label="M3">
+                      <Checkbox label="M3" true-value="true">
                           <span>M3</span>
                       </Checkbox>
-                      <Checkbox label="M4">
+                      <Checkbox label="M4" true-value="true">
                           <span>M4</span>
                       </Checkbox>
                   </CheckboxGroup>
@@ -123,26 +123,24 @@
         </Row>
     </Col>
   </Row>
-  <br>
   <Row :gutter="30">
-    <Col :md="8" :lg="9">
-        <Card :style="{marginTop: '10dp', padding: '0px, 0px'}">
+    <Col :md="8" :lg="9" :style="{marginTop:'20px'}">
+        <Card :style="{padding: '0px, 0px'}">
             <p slot="title">组选号码</p>
-            <Input v-model="value_numbers" :disabled="disabled" type="textarea" :rows="17"
-            placeholder="预测号码" readonly=true :style="{width: '100%'}"></Input>
+            <Input v-model="value_numbers" type="textarea" :rows="17"
+            placeholder="预测号码" :readonly="true" :style="{width: '100%'}"></Input>
             </br>
             <p :style="{marginTop:'10px', textAlign: 'center'}">共{{zhuNum}}组</p>
           </Card>
     </Col>
     <Col :md="16" :lg="15" >
-        <p class="card-title">
+        <p class="card-title" :style="{marginTop:'16px'}">
             <Icon type="android-list"></Icon>
             今日开奖列表
         </p>
         <div :style="{marginTop:'10px'}">
             <Table border stripe :loading="tableLoading" height="444" :columns="tableColumns"
-            :data="tableData" :class="getTableData"
-            :row-class-name="tableRowClassName"></Table>
+            :data="tableData"></Table>
         </div>
     </Col>
   </Row>
@@ -157,8 +155,15 @@ export default {
   data () {
     return {
       loading: false,
+      value_number: '',
+      value_numbers: '',
       value_number_select: 'm2',
       sxDialog: false,
+      sx_type: [],
+      sx_sc: [],
+      sx_dd: [],
+      sx_dxb: [],
+      sx_qob: [],
       tableLoading: true,
       sxSwitch: false,
       sxBtnDisable: true,
@@ -220,16 +225,10 @@ export default {
     },
     sxDialogClick () {
       this.sxDialog = true
-      this.sx_type = []
-      this.sx_sc = []
-      this.sx_dd = []
-      this.sx_dxb = []
-      this.sx_qob = []
     },
     sxTypeChange (data) {
+      // console.log(data)
       this.sx_type = data
-      console.log(data)
-      console.log(this.sx_type)
     },
     sxShaiChuChange (data) {
       this.sx_sc = data
@@ -244,20 +243,25 @@ export default {
       this.sx_qob = data
     },
     ok () {
-      // let sxType = this.sx_type
+      let sxType = this.sx_type
       // for (let i = 0; i < sxType.length; i++) {
       //   console.log(sxType[i])
       // }
-      // console.log(sxType)
-      // console.log(this.sx_sc)
-      // console.log(this.sx_dd)
-      // console.log(this.sx_dxb)
-      // console.log(this.sx_qob)
+      console.log(sxType)
+      console.log(this.sx_sc)
+      console.log(this.sx_dd)
+      console.log(this.sx_dxb)
+      console.log(this.sx_qob)
     },
     cancel () {
       this.$Message.info('您的筛选操作取消啦')
       this.sxBtnDisable = true
       this.sxSwitch = false
+      this.sx_type = []
+      this.sx_sc = []
+      this.sx_dd = []
+      this.sx_dxb = []
+      this.sx_qob = []
     },
     toLoading: async function () {
       this.loading = true

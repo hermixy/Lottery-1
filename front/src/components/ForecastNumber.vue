@@ -4,7 +4,7 @@
     <Col :md="24" :lg="9" :style="{marginTop: '20px'}">
         <Row type="flex" align="middle">
             <Col span="18">
-                <Input v-model="value_number" placeholder="号码格式01 02 07 09 10" :maxlength="20" size="large">
+                <Input v-model="value_number" placeholder="号码格式01 02 03 04 05" :maxlength="20" size="large">
                     <Select v-model="value_number_select" slot="append" style="width: 66px">
                         <Option value="m0">M0</Option>
                         <Option value="m1">M1</Option>
@@ -42,19 +42,19 @@
                 <p style="font-weight: bold">类型:</p>
                 <Card :style="{marginTop:'10px'}">
                   <CheckboxGroup v-model="sx_type" size="large" @on-change="sxTypeChange">
-                      <Checkbox label="M0" true-value="true">
+                      <Checkbox label="m0">
                           <span>M0</span>
                       </Checkbox>
-                      <Checkbox label="M1" true-value="true">
+                      <Checkbox label="m1">
                           <span>M1</span>
                       </Checkbox>
-                      <Checkbox label="M2" true-value="true">
+                      <Checkbox label="m2">
                           <span>M2</span>
                       </Checkbox>
-                      <Checkbox label="M3" true-value="true">
+                      <Checkbox label="m3">
                           <span>M3</span>
                       </Checkbox>
-                      <Checkbox label="M4" true-value="true">
+                      <Checkbox label="m4">
                           <span>M4</span>
                       </Checkbox>
                   </CheckboxGroup>
@@ -243,11 +243,10 @@ export default {
       this.sx_qob = data
     },
     ok () {
-      let sxType = this.sx_type
       // for (let i = 0; i < sxType.length; i++) {
       //   console.log(sxType[i])
       // }
-      console.log(sxType)
+      console.log(this.sx_type)
       console.log(this.sx_sc)
       console.log(this.sx_dd)
       console.log(this.sx_dxb)
@@ -264,6 +263,13 @@ export default {
       this.sx_qob = []
     },
     toLoading: async function () {
+      this.sxBtnDisable = true
+      this.sxSwitch = false
+      this.sx_type = []
+      this.sx_sc = []
+      this.sx_dd = []
+      this.sx_dxb = []
+      this.sx_qob = []
       this.loading = true
       let number = this.value_number
       let re = /^(\d{2}\s)+\d{2}$/

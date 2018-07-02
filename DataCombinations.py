@@ -65,6 +65,7 @@ def initNumbers(strs):
         new_list.append(int(s))
     # list.sort(reverse=False)
     calculate(new_list)
+    # return new_list
 
 
 class DataForecast(object):
@@ -91,34 +92,117 @@ def getOpenNumbers(numbers):
     else:
         list2json["status"] = 666
         list2json["msg"] = "没有数据啦"
-        
+
     list2json["listData"] = numberDict
     jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
+    # print(jsonRes)
     return jsonRes
 
 
-def getForecastNumbers(method, numbers):
+# 类型 开奖号码 筛选类型 筛除号码 定胆号码 筛除大小比 筛除奇偶比
+def getForecastNumbers(method, numbers, scNumber, ddNumber, dxbNumber, qobNumber):
     initNumbers(numbers)
-    if method == str("m0"):
-        return getOpenNumbers(listsOf0)
-    if method == str("m1"):
-        return getOpenNumbers(listsOf1)
-    if method == str("m2"):
-        return getOpenNumbers(listsOf2)
-    if method == str("m3"):
-        return getOpenNumbers(listsOf3)
-    if method == str("m4"):
-        return getOpenNumbers(listsOf4)
+    if method:
+        resultList = []
+        sxList0 = []
+        sxList1 = []
+        sxList2 = []
+        sxList3 = []
+        sxList4 = []
+        types = method.strip(',').split(',')
+        for type in types:
+            if type == str("m0"):
+                sxList0 = setSxResultList(ddNumber, scNumber, dxbNumber, qobNumber, listsOf0)
+            elif type == str("m1"):
+                sxList1 = setSxResultList(ddNumber, scNumber, dxbNumber, qobNumber, listsOf1)
+            elif type == str("m2"):
+                sxList2 = setSxResultList(ddNumber, scNumber, dxbNumber, qobNumber, listsOf2)
+            elif type == str("m3"):
+                sxList3 = setSxResultList(ddNumber, scNumber, dxbNumber, qobNumber, listsOf3)
+            elif type == str("m4"):
+                sxList4 = setSxResultList(ddNumber, scNumber, dxbNumber, qobNumber, listsOf4)
+
+        setSxList(sxList0, resultList)
+        setSxList(sxList1, resultList)
+        setSxList(sxList2, resultList)
+        setSxList(sxList3, resultList)
+        setSxList(sxList4, resultList)
+        # print(len(resultList), "组 ", resultList)
+
+        return getOpenNumbers(resultList)
+
+
+def setSxList(sxList, resultList):
+    for sxListItem in sxList:
+        resultList.append(sxListItem)
+
+
+#  筛除号码
+def setSxScNumber(scNumber, list):
+    resultList = []
+    scNumberSet = calculateNumber(scNumber)  # 筛除号码
+    if not scNumberSet:
+        return list
+    else:
+        for itemList in list:
+            if not itemList & scNumberSet:
+                print(itemList)
+                resultList.append(itemList)
+        return resultList
+
+
+# 筛选定胆号码
+def setSxDdNumber(ddNumber, list):
+    resultList = []
+    ddNumberSet = calculateNumber(ddNumber)  # 定胆号码
+    if not ddNumberSet:
+        return list
+    else:
+        for itemList in list:
+            if itemList & ddNumberSet:
+                print(itemList)
+                resultList.append(itemList)
+        return resultList
+
+
+# 筛除大小比号码
+def setSxDxbNumber(dxbNumber, list):
+    resultList = []
+    if not dxbNumber:
+        print("大小比条件为空")
+        return list
+    else:
+        return resultList
+
+
+# 筛除奇偶比号码
+def setSxDxbNumber(qobNumber, list):
+    resultList = []
+    if not qobNumber:
+        print("奇偶比条件为空")
+        return list
+    else:
+        return resultList
+
+
+# 根据规则筛除号码
+def setSxResultList(ddNumber, scNumber, dxbNumber, qobNumber, listOf):
+    scResultList = setSxScNumber(scNumber, listOf)  # 筛除后的号码
+    ddResultList = setSxDdNumber(ddNumber, scResultList)  # 用筛除后的号码筛选定胆号码
+    dxbResultList = setSxDxbNumber(dxbNumber, ddResultList)
+    qobbResultList = setSxDxbNumber(qobNumber, dxbResultList)
+    return qobbResultList
 
 
 def calculateNumber(numbers):
-    start_list = numbers.split(' ')
     start_new_list = []
-    for number in start_list:
-        n = int(number)
-        s = "%01d" % n
-        start_new_list.append(int(s))
-    # list.sort(reverse=False)
+    if numbers:
+        start_list = numbers.split(' ')
+        for number in start_list:
+            n = int(number)
+            s = "%01d" % n
+            start_new_list.append(int(s))
+        # list.sort(reverse=False)
     return set(start_new_list)
 
 
@@ -137,6 +221,7 @@ def getNumberType(start, end):
     else:
         return "M0"
 
+
 # 得到并集数
 def getIntersectionNum(start, end):
     return len(start & end)
@@ -144,5 +229,8 @@ def getIntersectionNum(start, end):
 
 if __name__ == '__main__':
     strs = "04,01,10,03,09"
-    initNumbers(strs)
+    # initNumbers(strs)
+    # print(getNumberType("1 03 9", "04 01 10 03 09"))
+    # print(calculateNumber("1 03 9"))
     # print(getOpenNumbers(listsOf0))
+    getForecastNumbers("m2,m3", strs, "03", "02", "", "")

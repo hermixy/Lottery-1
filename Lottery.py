@@ -81,7 +81,11 @@ def get_numbers():
     if request.method == 'POST':
         method = request.form['type']
         numbers = request.form['numbers']
-        numberJson = DataCombinations.getForecastNumbers(method, numbers)
+        scNumber = request.form['sc']
+        ddNumber = request.form['dd']
+        dxbNumber = request.form['dxb']
+        qobNumber = request.form['qob']
+        numberJson = DataCombinations.getForecastNumbers(method, numbers, scNumber, ddNumber, dxbNumber, qobNumber)
         return return2Json(numberJson)
     return '暂无数据'
 

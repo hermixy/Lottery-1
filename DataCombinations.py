@@ -3,6 +3,7 @@ from itertools import combinations
 from itertools import permutations
 from itertools import filterfalse
 import json
+import operator
 
 test_data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 # for i in combinations(test_data, 5):
@@ -127,7 +128,7 @@ def getForecastNumbers(method, numbers, scNumber, ddNumber, dxbNumber, qobNumber
         setSxList(sxList2, resultList)
         setSxList(sxList3, resultList)
         setSxList(sxList4, resultList)
-        # print(len(resultList), "组 ", resultList)
+        print(len(resultList), "组 ", resultList)
 
         return getOpenNumbers(resultList)
 
@@ -160,33 +161,67 @@ def setSxDdNumber(ddNumber, list):
     else:
         for itemList in list:
             if itemList & ddNumberSet:
-                # print(itemList)
                 resultList.append(itemList)
         return resultList
 
 
 # 筛除大小比号码
 def setSxDxbNumber(dxbNumber, list):
-    resultList = []
     if not dxbNumber:
         return list
     else:
+        dxbNumbers = dxbNumber.strip(',').split(',')
+        # print(dxbNumbers)
+        resultList = list
+        for dxbNumberItem in dxbNumbers:
+            # print(dxbNumberItem)
+            resultList = setSxDxbNumberItem(dxbNumberItem, resultList)
         return resultList
+
+
+def setSxDxbNumberItem(dxbNumberItem, list):
+    resultList = []
+    for itemList in list:
+        dNum = 0
+        xNum = 0
+        for item in itemList:
+            if int(item) > 5:
+                dNum += 1
+            else:
+                xNum += 1
+        dxbStr = str(dNum) + ":" + str(xNum)
+        if not operator.eq(dxbNumberItem, dxbStr):
+            resultList.append(itemList)
+            # print(itemList, "大小比:", dxbStr)
+    return resultList
 
 
 # 筛除奇偶比号码
-def setSxDxbNumber(qobNumber, list):
-    resultList = []
+def setSxQobNumber(qobNumber, list):
     if not qobNumber:
         return list
     else:
-        for itemList in list:
-            for item in itemList:
-                if int(item) % 2 == 0:
-                    print("{0} 是偶数".format(int(item)))
-                else:
-                    print("{0} 是奇数".format(int(item)))
+        qobNumbers = qobNumber.strip(',').split(',')
+        resultList = list
+        for qobNumberItem in qobNumbers:
+            resultList = setSxQobNumberItem(qobNumberItem, resultList)
         return resultList
+
+def setSxQobNumberItem(qobNumberItem, list):
+    resultList = []
+    for itemList in list:
+        oNum = 0
+        qNum = 0
+        for item in itemList:
+            if int(item) % 2 == 0:
+                oNum += 1
+            else:
+                qNum += 1
+        qobStr = str(qNum) + ":" + str(oNum)
+        if not operator.eq(qobNumberItem, qobStr):
+            resultList.append(itemList)
+            # print(itemList, "奇偶比:", qobStr)
+    return resultList
 
 
 # 根据规则筛除号码
@@ -194,7 +229,7 @@ def setSxResultList(ddNumber, scNumber, dxbNumber, qobNumber, listOf):
     scResultList = setSxScNumber(scNumber, listOf)  # 筛除后的号码
     ddResultList = setSxDdNumber(ddNumber, scResultList)  # 用筛除后的号码筛选定胆号码
     dxbResultList = setSxDxbNumber(dxbNumber, ddResultList)
-    qobbResultList = setSxDxbNumber(qobNumber, dxbResultList)
+    qobbResultList = setSxQobNumber(qobNumber, dxbResultList)
     return qobbResultList
 
 
@@ -237,4 +272,4 @@ if __name__ == '__main__':
     # print(getNumberType("1 03 9", "04 01 10 03 09"))
     # print(calculateNumber("1 03 9"))
     # print(getOpenNumbers(listsOf0))
-    getForecastNumbers("m3,m2", strs, "04", "05 07", "", "")
+    getForecastNumbers("m3,m2", strs, "04", "05", "2:3,3:2", "2:3,3:2")

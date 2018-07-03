@@ -5,7 +5,7 @@
         <Row type="flex" align="middle">
             <Col span="18">
                 <Input v-model="value_number" placeholder="号码格式01 02 03 04 05" :maxlength="20" size="large">
-                    <Select v-model="value_number_select" slot="append" style="width: 66px">
+                    <Select v-model="value_number_select" slot="append" :disabled="value_number_select_disabled" style="width: 66px">
                         <Option value="m0">M0</Option>
                         <Option value="m1">M1</Option>
                         <Option value="m2">M2</Option>
@@ -182,6 +182,7 @@ export default {
       value_number: '',
       value_numbers: '',
       value_number_select: 'm2',
+      value_number_select_disabled: false,
       sxDialog: false,
       sx_type: [],
       sx_sc: [],
@@ -246,6 +247,7 @@ export default {
   methods: {
     sxSwichChange (status) {
       this.sxBtnDisable = !status
+      this.value_number_select_disabled = status
     },
     sxDialogClick () {
       this.sxDialog = true
@@ -267,14 +269,8 @@ export default {
     },
     ok () {
       if (this.sx_type) {
-        this.value_number_select = ''
+        this.value_number_select_disabled = true
       }
-      console.log(this.value_number_select)
-      console.log(this.sx_type)
-      console.log(this.sx_sc)
-      console.log(this.sx_dd)
-      console.log(this.sx_dxb)
-      console.log(this.sx_qob)
     },
     cancel () {
       this.$Message.info('您的筛选操作取消啦')
@@ -285,6 +281,7 @@ export default {
       this.sx_dd = []
       this.sx_dxb = []
       this.sx_qob = []
+      this.value_number_select_disabled = false
     },
     toLoading: async function () {
       this.loading = true
@@ -295,10 +292,16 @@ export default {
       } else {
         this.loading = true
         let sxType
-        if (this.value_number_select) {
+        if (this.value_number_select_disabled === false) {
           sxType = this.value_number_select
         } else {
-          sxType = util.dataForDouhao(this.sx_type)
+          if (this.sx_type.length === 0) {
+            this.$Message.warning('筛选已开，至少要选类型')
+            this.loading = false
+            return
+          } else {
+            sxType = util.dataForDouhao(this.sx_type)
+          }
         }
         let sxSc = util.dataForKongGe(this.sx_sc)
         let params = {
@@ -332,6 +335,7 @@ export default {
           this.sx_dd = []
           this.sx_dxb = []
           this.sx_qob = []
+          this.value_number_select_disabled = false
           // this.disabled = true
         }
       }

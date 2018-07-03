@@ -146,7 +146,7 @@ def setSxScNumber(scNumber, list):
     else:
         for itemList in list:
             if not itemList & scNumberSet:
-                print(itemList)
+                # print(itemList)
                 resultList.append(itemList)
         return resultList
 
@@ -160,7 +160,7 @@ def setSxDdNumber(ddNumber, list):
     else:
         for itemList in list:
             if itemList & ddNumberSet:
-                print(itemList)
+                # print(itemList)
                 resultList.append(itemList)
         return resultList
 
@@ -232,9 +232,9 @@ def getIntersectionNum(start, end):
 
 
 if __name__ == '__main__':
-    strs = "04,01,10,03,09"
+    strs = "04,05,10,09,07"
     # initNumbers(strs)
     # print(getNumberType("1 03 9", "04 01 10 03 09"))
     # print(calculateNumber("1 03 9"))
     # print(getOpenNumbers(listsOf0))
-    getForecastNumbers("m2,m3", strs, "03", "02", "", "")
+    getForecastNumbers("m3,m2", strs, "04", "05 07", "", "")

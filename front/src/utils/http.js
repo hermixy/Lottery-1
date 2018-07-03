@@ -2,6 +2,7 @@
 
 import axios from 'axios'
 import qs from 'qs'
+import { Notice } from 'iview'
 
 axios.interceptors.request.use(config => {
   // loading
@@ -41,7 +42,7 @@ function checkCode (res) {
   // 如果code异常(这里已经包括网络错误，服务器错误，后端抛出的错误)，可以弹出一个错误提示，告诉用户
   // console.log('checkCode', res)
   if (res.status !== 200) {
-    this.$Notice.warning({
+    Notice.warning({
       title: res.msg
       // desc: nodesc ? '' : 'Here is the notification description. Here is the notification description. '
     })

@@ -97,24 +97,48 @@
                 <p style="font-weight: bold">筛除大小比:</p>
                 <Card :style="{marginTop:'10px'}">
                   <CheckboxGroup v-model="sx_dxb" size="large" @on-change="sxDaXiaoBiChange">
-                      <Checkbox label="0 : 5 "></Checkbox>
-                      <Checkbox label="1 : 4"></Checkbox>
-                      <Checkbox label="2 : 3"></Checkbox>
-                      <Checkbox label="3 : 2"></Checkbox>
-                      <Checkbox label="4 : 1"></Checkbox>
-                      <Checkbox label="5 : 0"></Checkbox>
+                      <Checkbox label="0:5">
+                        <span>0 : 5</span>
+                      </Checkbox>
+                      <Checkbox label="1:4">
+                        <span>1 : 4</span>
+                      </Checkbox>
+                      <Checkbox label="2:3">
+                        <span>2 : 3</span>
+                      </Checkbox>
+                      <Checkbox label="3:2">
+                        <span>3 : 2</span>
+                      </Checkbox>
+                      <Checkbox label="4:1">
+                        <span>4 : 1</span>
+                      </Checkbox>
+                      <Checkbox label="5:0">
+                        <span>5 : 0</span>
+                      </Checkbox>
                   </CheckboxGroup>
                 </Card>
                 <br>
                 <p style="font-weight: bold">筛除奇偶比:</p>
                 <Card :style="{marginTop:'10px'}">
                   <CheckboxGroup v-model="sx_qob" size="large" @on-change="sxQiOuBiChange">
-                      <Checkbox label="0 : 5"></Checkbox>
-                      <Checkbox label="1 : 4"></Checkbox>
-                      <Checkbox label="2 : 3"></Checkbox>
-                      <Checkbox label="3 : 2"></Checkbox>
-                      <Checkbox label="4 : 1"></Checkbox>
-                      <Checkbox label="5 : 0"></Checkbox>
+                      <Checkbox label="0:5">
+                        <span>0 : 5</span>
+                      </Checkbox>
+                      <Checkbox label="1:4">
+                        <span>1 : 4</span>
+                      </Checkbox>
+                      <Checkbox label="2:3">
+                        <span>2 : 3</span>
+                      </Checkbox>
+                      <Checkbox label="3:2">
+                        <span>3 : 2</span>
+                      </Checkbox>
+                      <Checkbox label="4:1">
+                        <span>4 : 1</span>
+                      </Checkbox>
+                      <Checkbox label="5:0">
+                        <span>5 : 0</span>
+                      </Checkbox>
                   </CheckboxGroup>
                 </Card>
                 <br>
@@ -227,7 +251,6 @@ export default {
       this.sxDialog = true
     },
     sxTypeChange (data) {
-      // console.log(data)
       this.sx_type = data
     },
     sxShaiChuChange (data) {
@@ -243,9 +266,10 @@ export default {
       this.sx_qob = data
     },
     ok () {
-      // for (let i = 0; i < sxType.length; i++) {
-      //   console.log(sxType[i])
-      // }
+      if (this.sx_type) {
+        this.value_number_select = ''
+      }
+      console.log(this.value_number_select)
       console.log(this.sx_type)
       console.log(this.sx_sc)
       console.log(this.sx_dd)
@@ -263,13 +287,6 @@ export default {
       this.sx_qob = []
     },
     toLoading: async function () {
-      this.sxBtnDisable = true
-      this.sxSwitch = false
-      this.sx_type = []
-      this.sx_sc = []
-      this.sx_dd = []
-      this.sx_dxb = []
-      this.sx_qob = []
       this.loading = true
       let number = this.value_number
       let re = /^(\d{2}\s)+\d{2}$/
@@ -277,9 +294,20 @@ export default {
         this.$Message.warning('格式不正确，例如01 02 03 04 05')
       } else {
         this.loading = true
+        let sxType
+        if (this.value_number_select) {
+          sxType = this.value_number_select
+        } else {
+          sxType = util.dataForDouhao(this.sx_type)
+        }
+        let sxSc = util.dataForKongGe(this.sx_sc)
         let params = {
-          type: this.value_number_select,
-          numbers: number.replace(/ /g, ',')
+          type: sxType,
+          numbers: number.replace(/ /g, ','),
+          sc: sxSc,
+          dd: util.dataForKongGe(this.sx_dd),
+          dxb: util.dataForDouhao(this.sx_dxb),
+          qob: util.dataForDouhao(this.sx_qob)
         }
         const res = await http.post('/lottery', params)
         if (http.isSuccess) {
@@ -296,6 +324,14 @@ export default {
           }
           this.zhuNum = index
           this.value_numbers = content
+
+          this.sxBtnDisable = true
+          this.sxSwitch = false
+          this.sx_type = []
+          this.sx_sc = []
+          this.sx_dd = []
+          this.sx_dxb = []
+          this.sx_qob = []
           // this.disabled = true
         }
       }

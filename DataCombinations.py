@@ -169,7 +169,6 @@ def setSxDdNumber(ddNumber, list):
 def setSxDxbNumber(dxbNumber, list):
     resultList = []
     if not dxbNumber:
-        print("大小比条件为空")
         return list
     else:
         return resultList
@@ -179,9 +178,14 @@ def setSxDxbNumber(dxbNumber, list):
 def setSxDxbNumber(qobNumber, list):
     resultList = []
     if not qobNumber:
-        print("奇偶比条件为空")
         return list
     else:
+        for itemList in list:
+            for item in itemList:
+                if int(item) % 2 == 0:
+                    print("{0} 是偶数".format(int(item)))
+                else:
+                    print("{0} 是奇数".format(int(item)))
         return resultList
 
 

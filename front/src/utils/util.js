@@ -31,8 +31,27 @@ function isNotEmpty (str) {
   return false
 }
 
+function forFormatData (data, symbol) {
+  let content = ''
+  let index = 0
+  for (let i = 0; i < data.length; i++) {
+    if (index > 0) {
+      content = content + symbol
+    }
+    content = content + data[i]
+    index++
+  }
+  return content
+}
+
 export default {
   dataFormat (date, fmt) {
     return format(date, fmt)
+  },
+  dataForDouhao (data) {
+    return forFormatData(data, ',')
+  },
+  dataForKongGe (data) {
+    return forFormatData(data, ' ')
   }
 }

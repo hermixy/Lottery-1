@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/views/hello/HelloWorld'
 import Main from '@/views/Main'
-import TrendingToday from '@/components/TrendingToday.vue'
-import ForecastNumber from '@/components/ForecastNumber.vue'
+// import TrendingToday from '@/components/TrendingToday.vue'
+// import ForecastNumber from '@/components/ForecastNumber.vue'
 
 Vue.use(Router)
 
@@ -19,13 +19,13 @@ export default new Router({
         {
           path: 'trendingToday',
           name: 'trendingToday',
-          component: TrendingToday,
+          component: resolve => require(['@/components/TrendingToday.vue'], resolve),
           meta: { title: '数据统计' }
         },
         {
           path: 'forecastNumber',
           name: '玩法选择',
-          component: ForecastNumber,
+          component: resolve => require(['@/components/ForecastNumber.vue'], resolve),
           meta: { title: '11选5辅助' }
         }
       ]

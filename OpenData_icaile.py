@@ -21,6 +21,7 @@ scheduler = BlockingScheduler()
 LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
 logging.basicConfig(filename='OpenData_icaile.log', level=logging.DEBUG, format=LOG_FORMAT)
 
+
 # IS_CENTOS = False
 
 # numberDicts = dict()

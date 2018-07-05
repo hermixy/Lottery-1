@@ -17,8 +17,8 @@
       </Card>
     </Col>
   </Row>
-  <Row :gutter="20" :style="{marginTop: '20px'}">
-    <Col :sm="24" :md="11" :lg="9">
+  <Row :gutter="20">
+    <Col :sm="24" :md="11" :lg="9" :style="{marginTop: '20px'}">
       <Card>
         <p slot="title">
             <Icon type="ios-film-outline"></Icon>
@@ -27,7 +27,7 @@
         <ve-pie :data="chartData_daxiaobi_zuori" ref="chartData_daxiaobi_zuori_ref"></ve-pie>
       </Card>
     </Col>
-    <Col :sm="24" :md="13" :lg="15">
+    <Col :sm="24" :md="13" :lg="15" :style="{marginTop: '20px'}">
      <Card>
          <p slot="title">
             <Icon type="ios-film-outline"></Icon>
@@ -37,8 +37,8 @@
       </Card>
     </Col>
   </Row>
-  <Row :gutter="20" :style="{marginTop: '20px'}">
-    <Col :sm="24" :md="11" :lg="9">
+  <Row :gutter="20">
+    <Col :sm="24" :md="11" :lg="9" :style="{marginTop: '20px'}">
       <Card>
         <p slot="title">
             <Icon type="ios-film-outline"></Icon>
@@ -47,7 +47,7 @@
         <ve-pie :data="chartData_qioubi_zuori" ref="chartData_qioubi_zuori_ref"></ve-pie>
       </Card>
     </Col>
-    <Col :sm="24" :md="13" :lg="15">
+    <Col :sm="24" :md="13" :lg="15" :style="{marginTop: '20px'}">
      <Card>
          <p slot="title">
             <Icon type="ios-film-outline"></Icon>

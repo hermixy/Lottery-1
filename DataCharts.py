@@ -54,6 +54,90 @@ def getDayTypesCount():
     return list
 
 
+def getDayDxbCount():
+    list = []
+    for i in range(5):
+        dateItem = getDate(i + 1)[2:]
+        itemDict = dict()
+        openNumbers = Lottery.db.session.query(
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_size == '0:5', '0:5')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_size == '1:4', '1:4')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_size == '2:3', '2:3')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_size == '3:2', '3:2')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_size == '4:1', '4:1')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_size == '5:0', '5:0')
+                ])),
+        ).filter(Lottery.OpenNumber.data_period.like("%" + dateItem + "%") if dateItem is not None else "").all()
+        itemDict['date'] = dateItem
+        itemDict['0:5'] = openNumbers[0][0]
+        itemDict['1:4'] = openNumbers[0][1]
+        itemDict['2:3'] = openNumbers[0][2]
+        itemDict['3:2'] = openNumbers[0][3]
+        itemDict['4:1'] = openNumbers[0][4]
+        itemDict['5:0'] = openNumbers[0][5]
+        list.append(itemDict)
+    return list
+
+
+def getDayQobCount():
+    list = []
+    for i in range(5):
+        dateItem = getDate(i + 1)[2:]
+        itemDict = dict()
+        openNumbers = Lottery.db.session.query(
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_qiou == '0:5', '0:5')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_qiou == '1:4', '1:4')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_qiou == '2:3', '2:3')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_qiou == '3:2', '3:2')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_qiou == '4:1', '4:1')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_qiou == '5:0', '5:0')
+                ])),
+        ).filter(Lottery.OpenNumber.data_period.like("%" + dateItem + "%") if dateItem is not None else "").all()
+        itemDict['date'] = dateItem
+        itemDict['0:5'] = openNumbers[0][0]
+        itemDict['1:4'] = openNumbers[0][1]
+        itemDict['2:3'] = openNumbers[0][2]
+        itemDict['3:2'] = openNumbers[0][3]
+        itemDict['4:1'] = openNumbers[0][4]
+        itemDict['5:0'] = openNumbers[0][5]
+        list.append(itemDict)
+    return list
+
+
 class DataDayTypesCount(object):
     def __init__(self, date, M0, M1, M2, M3, M4):
         self.date = date
@@ -83,8 +167,46 @@ def getOpenNumbers(numbers):
     return jsonRes
 
 
+class DataDayDxbCount(object):
+    def __init__(self, date, item05, item14, item23, item32, item41, item50):
+        self.date = date
+        self.item05 = item05
+        self.item14 = item14
+        self.item23 = item23
+        self.item32 = item32
+        self.item41 = item41
+        self.item50 = item50
+
+
+def getOpenDxbNumbers(numbers):
+    dataDict = []
+    list2json = {}
+    for item in numbers:
+        dataForecast = DataDayDxbCount(item['date'], item['0:5'], item['1:4'], item['2:3'], item['3:2'], item['4:1'],
+                                       item['5:0'])
+        dataDict.append(dataForecast)
+    if dataDict:
+        list2json["status"] = 200
+        list2json["msg"] = "获取成功"
+    else:
+        list2json["status"] = 666
+        list2json["msg"] = "没有数据啦"
+
+    list2json["data"] = dataDict
+    jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
+    return jsonRes
+
+
 def get10DayTypesCount():
     return getOpenNumbers(getDayTypesCount())
+
+
+def getDayDxbCounts():
+    return getOpenDxbNumbers(getDayDxbCount())
+
+
+def getDayQobCounts():
+    return getOpenDxbNumbers(getDayQobCount())
 
 
 def getDate(day):
@@ -95,5 +217,8 @@ def getDate(day):
 
 
 if __name__ == '__main__':
-    print(getOpenNumbers(getDayTypesCount()))
+    pass
+    # print(getOpenNumbers(getDayTypesCount()))
+    # print(getOpenDxbNumbers(getDayDxbCount()))
+    # print(getOpenDxbNumbers(getDayQobCount()))
     # getDate()

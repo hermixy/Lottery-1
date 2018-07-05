@@ -99,6 +99,24 @@ def get_type_count_5day():
     return '暂无数据'
 
 
+@app.route('/lottery/getDxbCountDay', methods=['POST'])
+@cors
+def get_dxb_count_day():
+    if request.method == 'POST':
+        json = DataCharts.getDayDxbCounts()
+        return return2Json(json)
+    return '暂无数据'
+
+
+@app.route('/lottery/getQobCountDay', methods=['POST'])
+@cors
+def get_qob_count_day():
+    if request.method == 'POST':
+        json = DataCharts.getDayQobCounts()
+        return return2Json(json)
+    return '暂无数据'
+
+
 def return2Json(json):
     return Response(json, mimetype='application/json')
 

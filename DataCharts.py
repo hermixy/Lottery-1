@@ -2,11 +2,12 @@
 
 import Lottery
 import json
+import datetime
 from sqlalchemy import func, case
 
 
 # 近5日
-def getDayTypesCount(date):
+def getDayTypesCount():
     # sql = "SELECT " \
     #       "count(CASE data_type WHEN 'M0' THEN 'M0' END) AS M0数量," \
     #       "count(CASE data_type WHEN 'M1' THEN 'M1' END) AS M1数量, " \
@@ -17,37 +18,39 @@ def getDayTypesCount(date):
     # openNumbers = Lottery.db.session.execute(sql).fetchall()
     # print(openNumbers)
     list = []
-    itemDict = dict()
-    openNumbers = Lottery.db.session.query(
-        func.count(
-            case([
-                (Lottery.OpenNumber.data_type == 'M0', 'M0')
-            ])),
-        func.count(
-            case([
-                (Lottery.OpenNumber.data_type == 'M1', 'M1')
-            ])),
-        func.count(
-            case([
-                (Lottery.OpenNumber.data_type == 'M2', 'M2')
-            ])),
-        func.count(
-            case([
-                (Lottery.OpenNumber.data_type == 'M3', 'M3')
-            ])),
-        func.count(
-            case([
-                (Lottery.OpenNumber.data_type == 'M4', 'M4')
-            ])),
-    ).filter(Lottery.OpenNumber.data_period.like(date + "%") if date is not None else "").all()
-    print(openNumbers)
-    itemDict['date'] = date
-    itemDict['m0'] = openNumbers[0][0]
-    itemDict['m1'] = openNumbers[0][1]
-    itemDict['m2'] = openNumbers[0][2]
-    itemDict['m3'] = openNumbers[0][3]
-    itemDict['m4'] = openNumbers[0][4]
-    list.append(itemDict)
+    for i in range(5):
+        dateItem = getDate(i + 1)[2:]
+        itemDict = dict()
+        openNumbers = Lottery.db.session.query(
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_type == 'M0', 'M0')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_type == 'M1', 'M1')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_type == 'M2', 'M2')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_type == 'M3', 'M3')
+                ])),
+            func.count(
+                case([
+                    (Lottery.OpenNumber.data_type == 'M4', 'M4')
+                ])),
+        ).filter(Lottery.OpenNumber.data_period.like("%" + dateItem + "%") if dateItem is not None else "").all()
+        # print(openNumbers)
+        itemDict['date'] = dateItem
+        itemDict['m0'] = openNumbers[0][0]
+        itemDict['m1'] = openNumbers[0][1]
+        itemDict['m2'] = openNumbers[0][2]
+        itemDict['m3'] = openNumbers[0][3]
+        itemDict['m4'] = openNumbers[0][4]
+        list.append(itemDict)
     return list
 
 
@@ -79,6 +82,16 @@ def getOpenNumbers(numbers):
     print(jsonRes)
     return jsonRes
 
+def get5DayTypesCount():
+    return getOpenNumbers(getDayTypesCount())
+
+def getDate(day):
+    now = datetime.datetime.now()
+    delta = datetime.timedelta(days=day)
+    n_days = now - delta
+    return n_days.strftime('%Y%m%d')
+
 
 if __name__ == '__main__':
-    getOpenNumbers(getDayTypesCount('180616'))
+    getOpenNumbers(getDayTypesCount())
+    # getDate()

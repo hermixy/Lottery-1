@@ -7,6 +7,7 @@ from flask_script import Manager, Shell
 from flask_migrate import Migrate
 import DataCombinations
 import OpenData_icaile
+import DataCharts
 
 app = Flask(__name__,
             static_folder="./dist/static",
@@ -86,6 +87,15 @@ def get_numbers():
         qobNumber = request.form['qob']
         numberJson = DataCombinations.getForecastNumbers(method, numbers, scNumber, ddNumber, dxbNumber, qobNumber)
         return return2Json(numberJson)
+    return '暂无数据'
+
+
+@app.route('/lottery/getTypeCount5Day', methods=['POST'])
+@cors
+def get_type_count_5day():
+    if request.method == 'POST':
+        json = DataCharts.get5DayTypesCount()
+        return return2Json(json)
     return '暂无数据'
 
 

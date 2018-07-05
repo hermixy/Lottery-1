@@ -7,7 +7,7 @@ from sqlalchemy import func, case
 
 
 # 近5日
-def getDayTypesCount():
+def getDayTypesCount(day):
     # sql = "SELECT " \
     #       "count(CASE data_type WHEN 'M0' THEN 'M0' END) AS M0数量," \
     #       "count(CASE data_type WHEN 'M1' THEN 'M1' END) AS M1数量, " \
@@ -18,7 +18,7 @@ def getDayTypesCount():
     # openNumbers = Lottery.db.session.execute(sql).fetchall()
     # print(openNumbers)
     list = []
-    for i in range(10):
+    for i in range(int(day)):
         dateItem = getDate(i + 1)[2:]
         itemDict = dict()
         openNumbers = Lottery.db.session.query(
@@ -197,8 +197,8 @@ def getOpenDxbNumbers(numbers):
     return jsonRes
 
 
-def get10DayTypesCount():
-    return getOpenNumbers(getDayTypesCount())
+def getDayTypeCounts(day):
+    return getOpenNumbers(getDayTypesCount(day))
 
 
 def getDayDxbCounts():
@@ -218,7 +218,7 @@ def getDate(day):
 
 if __name__ == '__main__':
     pass
-    # print(getOpenNumbers(getDayTypesCount()))
+    # print(getDayTypeCounts(15))
     # print(getOpenDxbNumbers(getDayDxbCount()))
     # print(getOpenDxbNumbers(getDayQobCount()))
     # getDate()

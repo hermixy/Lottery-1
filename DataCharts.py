@@ -18,7 +18,7 @@ def getDayTypesCount():
     # openNumbers = Lottery.db.session.execute(sql).fetchall()
     # print(openNumbers)
     list = []
-    for i in range(5):
+    for i in range(10):
         dateItem = getDate(i + 1)[2:]
         itemDict = dict()
         openNumbers = Lottery.db.session.query(
@@ -79,11 +79,13 @@ def getOpenNumbers(numbers):
 
     list2json["data"] = dataDict
     jsonRes = json.dumps(list2json, default=lambda obj: obj.__dict__)
-    print(jsonRes)
+    # print(jsonRes)
     return jsonRes
 
-def get5DayTypesCount():
+
+def get10DayTypesCount():
     return getOpenNumbers(getDayTypesCount())
+
 
 def getDate(day):
     now = datetime.datetime.now()
@@ -93,5 +95,5 @@ def getDate(day):
 
 
 if __name__ == '__main__':
-    getOpenNumbers(getDayTypesCount())
+    print(getOpenNumbers(getDayTypesCount()))
     # getDate()

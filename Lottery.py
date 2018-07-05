@@ -90,11 +90,11 @@ def get_numbers():
     return '暂无数据'
 
 
-@app.route('/lottery/getTypeCount5Day', methods=['POST'])
+@app.route('/lottery/getTypeCount10Day', methods=['POST'])
 @cors
 def get_type_count_5day():
     if request.method == 'POST':
-        json = DataCharts.get5DayTypesCount()
+        json = DataCharts.get10DayTypesCount()
         return return2Json(json)
     return '暂无数据'
 

@@ -4,7 +4,7 @@
       <Card>
         <p slot="title">
             <Icon type="ios-film-outline"></Icon>
-            近五日出现次数
+            近10日出现次数
         </p>
         <ve-line
           :data="chartData"
@@ -22,9 +22,12 @@
 
 </template>
 <script>
+import http from '../utils/http'
+
 export default {
   data () {
     this.extend = {
+      'xAxis.0.axisLabel.rotate': 45,
       series: {
         label: {
           normal: {
@@ -39,16 +42,7 @@ export default {
     return {
       chartData: {
         columns: ['date', 'M0', 'M1', 'M2', 'M3', 'M4'],
-        rows: [
-          { 'date': '昨日', 'M0': 45, 'M1': 44, 'M2': 38, 'M3': 23, 'M4': 28 },
-          { 'date': '0619', 'M0': 33, 'M1': 3, 'M2': 27, 'M3': 45, 'M4': 10 },
-          { 'date': '0618', 'M0': 25, 'M1': 44, 'M2': 28, 'M3': 43, 'M4': 38 },
-          { 'date': '0617', 'M0': 13, 'M1': 23, 'M2': 32, 'M3': 14, 'M4': 49 },
-          { 'date': '0616', 'M0': 45, 'M1': 44, 'M2': 38, 'M3': 23, 'M4': 18 },
-          { 'date': '0615', 'M0': 33, 'M1': 3, 'M2': 27, 'M3': 35, 'M4': 10 }
-          // { 'date': '0614', 'M0': 25, 'M1': 54, 'M2': 28, 'M3': 43, 'M4': 38 },
-          // { 'date': '0613', 'M0': 13, 'M1': 23, 'M2': 32, 'M3': 14, 'M4': 39 }
-        ]
+        rows: []
       }
     }
   },
@@ -56,8 +50,18 @@ export default {
     // this.$refs[`chart1`].echarts.resize()
   },
   mounted: function () {
+    this.get5DayData()
   },
   methods: {
+    get5DayData: async function () {
+      let params = {
+      }
+      const res = await http.post('/lottery/getTypeCount10Day', params)
+      if (http.isSuccess) {
+        let data = res.data
+        this.chartData.rows = data
+      }
+    }
   }
 
 }

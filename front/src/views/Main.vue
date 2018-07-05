@@ -84,6 +84,10 @@
                         <span>数据统计</span>
                     </MenuItem>
                 </Menu>
+                <Adsense
+                    data-ad-client="ca-pub-8836920368192866"
+                    data-ad-slot="8089222718">
+                </Adsense>
             </Sider>
             <Layout>
                 <Header :style="{padding: 0}" class="layout-header-bar">

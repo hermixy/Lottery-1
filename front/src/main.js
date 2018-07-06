@@ -14,7 +14,9 @@ import VePie from 'v-charts/lib/pie.common'
 // import 'element-ui/lib/theme-chalk/index.css'
 import 'iview/dist/styles/iview.css'
 import Ads from 'vue-google-adsense'
+import VueClipboard from 'vue-clipboard2'
 
+Vue.use(VueClipboard)
 Vue.use(require('vue-script2'))
 
 Vue.use(Ads.Adsense)

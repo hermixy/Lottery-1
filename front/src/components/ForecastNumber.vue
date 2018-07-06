@@ -151,6 +151,10 @@
     <Col :md="8" :lg="9" :style="{marginTop:'20px'}">
         <Card :style="{padding: '0px, 0px'}">
             <p slot="title">组选号码</p>
+            <a href="#" slot="extra" @click="doCopy">
+                <Icon type="clipboard"></Icon>
+                复制
+            </a>
             <Input v-model="value_numbers" type="textarea" :rows="17"
             placeholder="预测号码" :readonly="true" :style="{width: '100%'}"></Input>
             </br>
@@ -427,8 +431,14 @@ export default {
         this.tableData = data
         this.tableLoading = false
       }
+    },
+    doCopy () {
+      this.$copyText(this.value_numbers).then(function (e) {
+        util.messgeSuccess('组选号码已经复制到剪贴板')
+      }, function (e) {
+        util.messgeError('复制失败')
+      })
     }
-
     // tableRowClassName (row, index) {
     //   if (row.data_type === 'M1') {
     //     console.log(row.data_type + ' ' + index)

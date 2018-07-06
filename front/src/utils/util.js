@@ -1,3 +1,4 @@
+import { Message } from 'iview'
 
 function format (date, fmt) {
   var o = {
@@ -44,6 +45,13 @@ function forFormatData (data, symbol) {
   return content
 }
 
+function msgSuccess (data) {
+  Message.info(data)
+}
+
+function msgError (data) {
+  Message.info(data)
+}
 export default {
   dataFormat (date, fmt) {
     return format(date, fmt)
@@ -53,5 +61,11 @@ export default {
   },
   dataForKongGe (data) {
     return forFormatData(data, ' ')
+  },
+  messgeSuccess (data) {
+    msgSuccess(data)
+  },
+  messgeError (data) {
+    msgError(data)
   }
 }

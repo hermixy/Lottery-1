@@ -22,7 +22,7 @@
     <Col :sm="24" :md="11" :lg="9" :style="{marginTop: '20px'}">
       <Card>
         <p slot="title">
-            <Icon type="ios-film-outline"></Icon>
+            <Icon type="pie-graph"></Icon>
             昨日大小比出现次数
         </p>
         <ve-pie :data="chartData_daxiaobi_zuori" ref="chartData_daxiaobi_zuori_ref"></ve-pie>
@@ -31,7 +31,7 @@
     <Col :sm="24" :md="13" :lg="15" :style="{marginTop: '20px'}">
      <Card>
          <p slot="title">
-            <Icon type="ios-film-outline"></Icon>
+            <Icon type="stats-bars"></Icon>
             近5日大小比出现次数
         </p>
         <ve-histogram :data="chartData_daxiaobi_5ri" ref="chartData_daxiaobi_5ri_ref"></ve-histogram>
@@ -42,7 +42,7 @@
     <Col :sm="24" :md="11" :lg="9" :style="{marginTop: '20px'}">
       <Card>
         <p slot="title">
-            <Icon type="ios-film-outline"></Icon>
+            <Icon type="pie-graph"></Icon>
             昨日奇偶比出现次数
         </p>
         <ve-pie :data="chartData_qioubi_zuori" ref="chartData_qioubi_zuori_ref"></ve-pie>
@@ -51,7 +51,7 @@
     <Col :sm="24" :md="13" :lg="15" :style="{marginTop: '20px'}">
      <Card>
          <p slot="title">
-            <Icon type="ios-film-outline"></Icon>
+            <Icon type="stats-bars"></Icon>
             近5日奇偶比出现次数
         </p>
         <ve-histogram :data="chartData_qioubi_5ri" ref="chartData_qioubi_5ri_ref"></ve-histogram>

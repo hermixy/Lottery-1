@@ -1,5 +1,6 @@
 <template>
 <div>
+  <BackTop></BackTop>
   <Row :gutter="20" :style="{marginTop: '20px'}">
     <Col :md="24" :lg="24">
       <Card id="card">

@@ -158,10 +158,17 @@
           </Card>
     </Col>
     <Col :md="16" :lg="15" >
-        <p class="card-title" :style="{marginTop:'16px'}">
-            <Icon type="android-list"></Icon>
-            今日开奖列表
-        </p>
+        <Row :style="{marginTop:'16px'}" type="flex" align="middle">
+          <Col>
+            <p class="card-title" >
+              <Icon type="android-list"></Icon>
+              今日开奖列表
+            </p>
+          </Col>
+          <Col>
+            <p style="text-align: right; color: #abafbd;}">*自动会刷新</p>
+          </Col>
+        </Row>
         <div :style="{marginTop:'10px'}">
             <Table border stripe :loading="tableLoading" height="444" :columns="tableColumns"
             :data="tableData"></Table>

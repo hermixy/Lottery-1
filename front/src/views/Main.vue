@@ -1,4 +1,7 @@
 <style scoped>
+    a {
+        cursor:pointor;
+    }
     .layout{
         border: 1px solid #d7dde4;
         background: #f5f7f9;
@@ -12,22 +15,30 @@
         position: relative;
     }
     .header-avator-con{
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 100%;
-            padding-right: 14px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        padding-right: 14px;
     }
+    .head-rules{
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        padding-right: 14px;
+    }
+
     .main-user-name{
-                        display: inline-block;
-                        width: 80px;
-                        word-break: keep-all;
-                        white-space: nowrap;
-                        vertical-align: middle;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        text-align: right;
-                    }
+        display: inline-block;
+        width: 80px;
+        word-break: keep-all;
+        white-space: nowrap;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: right;
+    }
     .layout-logo-left{
         width: 90%;
         height: 30px;
@@ -84,6 +95,7 @@
                         <span>数据统计</span>
                     </MenuItem>
                 </Menu>
+                <p style="color: #F9453E; font-size: 14px; position:absolute; bottom:0; width:100%; height:80px;text-align: center;" >投注有风险，投资需谨慎</p>
                 <Adsense
                     data-ad-client="ca-pub-8836920368192866"
                     data-ad-slot="8089222718">
@@ -92,7 +104,7 @@
             <Layout>
                 <Header :style="{padding: 0}" class="layout-header-bar">
                     <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
-                    <div class="header-avator-con">
+                    <!-- <div class="header-avator-con">
                         <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
                             <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">
                                 <a href="javascript:void(0)">
@@ -100,11 +112,34 @@
                                     <Icon type="arrow-down-b"></Icon>
                                 </a>
                                 <DropdownMenu slot="list">
-                                    <!-- <DropdownItem name="ownSpace">个人中心</DropdownItem> -->
-                                    <DropdownItem name="loginout">退出登录</DropdownItem>
+                                     <DropdownItem name="ownSpace">个人中心</DropdownItem>
+                                     <DropdownItem name="loginout">退出登录</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                            <Avatar :style="{background: '#f56a00', marginLeft: '10px'}" size="large" icon="person">{{ userName }}</Avatar>
+                        </Row>
+                    </div> -->
+                    <div class="head-rules">
+                        <Row type="flex" justify="end" align="middle">
+                            <a style="color: #3399ff; font-size: 16px; font-weight: bold;} " href="#" @click="rules_modal = true">玩法说明
+                                <Icon type="help-circled"></Icon>
+                            </a>
+                            <Modal
+                                v-model="rules_modal"
+                                title="玩法说明"
+                                @on-ok="ok"
+                                @on-cancel="cancel">
+                                <p>本网站是从11个号码中随机选5个号码进行组合得出所有结果，在购买网站上把选择出来的5个号码的所有组合进行购买，只要当期顺序摇出的5个开奖号码中包含所选号码，即为中奖。中奖概率会大大提升，购买网站是可以一次性粘贴所有的结果一次性购买的，中奖率极高。</p>
+                                <p>M0: 是指跟上期开奖没有重号；</p>
+                                <p>M1: 是指跟上期开奖有一个重号；</p>
+                                <p>M2: 是指跟上期开奖有两个重号；</p>
+                                <p>M3: 是指跟上期开奖有三个重号；</p>
+                                <p>M4: 是指跟上期开奖有四个重号；</p>
+                                <p>筛选功能：可以选择你猜的类型，筛除号码，定胆号码，筛除大小比，筛除奇偶比，这样可以根据自己的判断得出自认为更好的结果，这样可以获得更少的组数，中更多的MONEY；</p>
+                                <p>数据统计：可以查看往日开出来的类型，大小比，奇偶比，助你更好的选择；</p>
+                                <p>偷偷的在这里告诉你，在所选的组数只要有一组中奖，就是中奖，一旦中奖，本次投注不会亏损本金。</p>
+                                <p style="color: #F9453E; font-size: 14px;} ">投注有风险，投资需谨慎</p>
+                            </Modal>
                         </Row>
                     </div>
                 </Header>
@@ -125,7 +160,8 @@ export default {
   data () {
     return {
       isCollapsed: false,
-      userName: '我就是我'
+      userName: '我就是我',
+      rules_modal: false
     }
   },
   computed: {
@@ -151,6 +187,8 @@ export default {
     },
     toGoTrendingToday () {
       this.$router.push({path: '/trendingToday'})
+    },
+    rulesClick () {
     }
   }
 }

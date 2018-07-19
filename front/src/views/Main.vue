@@ -150,7 +150,9 @@
                         </keep-alive>
                     </div>
                 </Content>
-                <Footer class="layout-footer-center"> copyright©2017-2018</Footer>
+                <Footer class="layout-footer-center">
+                    <a href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action" target="_blank">京ICP备18037389号</a>
+                </Footer>
             </Layout>
         </Layout>
     </div>

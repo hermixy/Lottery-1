@@ -34,10 +34,15 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
+  iView.LoadingBar.start()
   if (to.meta.title) {
     document.title = to.meta.title
   }
   next()
+})
+
+router.afterEach((to) => {
+  iView.LoadingBar.finish()
 })
 
 // The routing configuration

@@ -151,7 +151,12 @@
                     </div>
                 </Content>
                 <Footer class="layout-footer-center">
-                    <a href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action" target="_blank">京ICP备18037389号</a>
+                    <!-- <router-link to="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备18037389号</router-link> -->
+                    <!-- <a href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action" target="_blank">
+                        京ICP备18037389号
+                    </a> -->
+                    <a>京ICP备18037389号</a>
+                    <!-- <a href="#" @click="goMiitbeian">京ICP备18037389号</a> -->
                 </Footer>
             </Layout>
         </Layout>
@@ -191,6 +196,9 @@ export default {
       this.$router.push({path: '/trendingToday'})
     },
     rulesClick () {
+    },
+    goMiitbeian () {
+    //   window.open('http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action')
     }
   }
 }

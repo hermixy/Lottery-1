@@ -102,6 +102,13 @@ export default {
     }
   },
   watch: function () {
+    this.$nextTick(() => {
+      this.$refs.chart1.echarts.resize()
+      this.$refs.chartData_daxiaobi_zuori_ref.echarts.resize()
+      this.$refs.chartData_daxiaobi_5ri_ref.echarts.resize()
+      this.$refs.chartData_qioubi_zuori_ref.echarts.resize()
+      this.$refs.chartData_qioubi_5ri_ref.echarts.resize()
+    })
   },
   created: function () {
     this.$nextTick(() => {

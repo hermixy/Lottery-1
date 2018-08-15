@@ -184,12 +184,15 @@
       <div :style="{marginTop:'10px'}">
         <Row type="flex" justify="start">
           <Col>
-            <Tooltip placement="right" max-width="300">
+            <Tooltip placement="right" max-width="1000">
               <a class="table-num-title" href="#" @click="table_num_modal = true">今日类型出现次数
                                     <Icon type="help-circled"></Icon>
               </a>
               <div slot="content">
-                <p>据每天的数据观察，M2 M3两者相加出现的次数在65次左右</p>
+                <p>------</p>
+                <p>据每天的数据观察:</p>
+                <p> M2 M3两者相加出现的次数在65次左右</p>
+                <p>------</p>
               </div>
             </Tooltip>
           </Col>

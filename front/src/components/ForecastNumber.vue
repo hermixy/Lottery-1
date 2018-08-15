@@ -179,7 +179,27 @@
         </div>
     </Col>
   </Row>
+  <Row>
+    <Col>
+      <div :style="{marginTop:'10px'}">
+        <Row type="flex" justify="start">
+          <Col>
+            <Tooltip placement="right" max-width="300">
+              <a class="table-num-title" href="#" @click="table_num_modal = true">今日类型出现次数
+                                    <Icon type="help-circled"></Icon>
+              </a>
+              <div slot="content">
+                <p>据每天的数据观察，M2 M3两者相加出现的次数在65次左右</p>
+              </div>
+            </Tooltip>
+          </Col>
+        </Row>
+        <Table border stripe :columns="tableColumnsNum" :data="tableDataNum" :style="{marginTop:'10px'}"></Table>
+      </div>
+    </Col>
+  </Row>
 </div>
+
 </template>
 
 <script>
@@ -204,6 +224,33 @@ export default {
       sxSwitch: false,
       sxBtnDisable: true,
       zhuNum: '0',
+      tableColumnsNum: [
+        {
+          title: 'M0',
+          key: 'num_m0',
+          className: 'table-info-column-m0'
+        },
+        {
+          title: 'M1',
+          key: 'num_m1',
+          className: 'table-info-column-m1'
+        },
+        {
+          title: 'M2',
+          key: 'num_m2',
+          className: 'table-info-column-m2'
+        },
+        {
+          title: 'M3',
+          key: 'num_m3',
+          className: 'table-info-column-m3'
+        },
+        {
+          title: 'M4',
+          key: 'num_m4',
+          className: 'table-info-column-m4'
+        }
+      ],
       tableColumns: [
         {
           title: '期号',
@@ -245,7 +292,8 @@ export default {
           width: 100
         }
       ],
-      tableData: []
+      tableData: [],
+      tableDataNum: []
     }
   },
   computed: {
@@ -362,6 +410,12 @@ export default {
       if (http.isSuccess) {
         let listData = res.listData
         const data = []
+        const dataNum = []
+        let m0Num = 0
+        let m1Num = 0
+        let m2Num = 0
+        let m3Num = 0
+        let m4Num = 0
         for (let i = 0; i < listData.length; i++) {
           let type = listData[i].data_type
           let period = listData[i].data_period
@@ -370,6 +424,7 @@ export default {
           let qiou = listData[i].data_qiou
           let zhihe = listData[i].data_zhihe
           if (type === 'M1') {
+            m1Num++
             data.push({
               data_period: period,
               data_award: award,
@@ -382,6 +437,7 @@ export default {
               }
             })
           } else if (type === 'M2') {
+            m2Num++
             data.push({
               data_period: period,
               data_award: award,
@@ -394,6 +450,7 @@ export default {
               }
             })
           } else if (type === 'M3') {
+            m3Num++
             data.push({
               data_period: period,
               data_award: award,
@@ -406,6 +463,7 @@ export default {
               }
             })
           } else if (type === 'M4') {
+            m4Num++
             data.push({
               data_period: period,
               data_award: award,
@@ -418,6 +476,7 @@ export default {
               }
             })
           } else {
+            m0Num++
             data.push({
               data_period: period,
               data_award: award,
@@ -428,7 +487,15 @@ export default {
             })
           }
         }
+        dataNum.push({
+          num_m0: m0Num,
+          num_m1: m1Num,
+          num_m2: m2Num,
+          num_m3: m3Num,
+          num_m4: m4Num
+        })
         this.tableData = data
+        this.tableDataNum = dataNum
         this.tableLoading = false
       }
     },
@@ -451,6 +518,7 @@ export default {
 <style>
   input:focus, textarea:focus {
       outline: none;
+      outline: none;
   }
   textarea {
     resize: none;
@@ -458,6 +526,10 @@ export default {
   .card-title {
     color: #abafbd;
     font-size: 20px;
+  }
+  .table-num-title {
+    color: #abafbd;
+    font-size: 16px;
   }
   .ivu-table .table-info-cell-type1 {
     color: rgb(3, 160, 250);
@@ -472,6 +544,26 @@ export default {
     font-weight: bold;
   }
   .ivu-table .table-info-cell-type4 {
+    color: rgb(210, 17, 228);
+    font-weight: bold;
+  }
+  .ivu-table td.table-info-column-m0{
+    color: rgb(99, 102, 102);
+    font-weight: bold;
+  }
+  .ivu-table td.table-info-column-m1{
+    color: rgb(3, 160, 250);
+    font-weight: bold;
+  }
+  .ivu-table td.table-info-column-m2{
+    color: rgb(243, 18, 18);
+    font-weight: bold;
+  }
+  .ivu-table td.table-info-column-m3{
+    color: rgb(50, 167, 35);
+    font-weight: bold;
+  }
+  .ivu-table td.table-info-column-m4{
     color: rgb(210, 17, 228);
     font-weight: bold;
   }

@@ -95,7 +95,7 @@
                         <span>数据统计</span>
                     </MenuItem>
                 </Menu>
-                <p style="color: #F9453E; font-size: 14px; position:absolute; bottom:0; width:100%; height:80px;text-align: center;" >投注有风险，投资需谨慎</p>
+                <!-- <p style="color: #F9453E; font-size: 14px; position:absolute; bottom:0; width:100%; height:80px;text-align: center;" >投注有风险，投资需谨慎</p> -->
                 <Adsense
                     data-ad-client="ca-pub-8836920368192866"
                     data-ad-slot="8089222718">

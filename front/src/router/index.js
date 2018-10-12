@@ -19,13 +19,13 @@ export default new Router({
         {
           path: 'trendingToday',
           name: 'trendingToday',
-          component: resolve => require(['@/components/TrendingToday.vue'], resolve),
+          component: resolve => require(['@/views/TrendingToday.vue'], resolve),
           meta: { title: '数据统计' }
         },
         {
           path: 'forecastNumber',
           name: '玩法选择',
-          component: resolve => require(['@/components/ForecastNumber.vue'], resolve),
+          component: resolve => require(['@/views/ForecastNumber.vue'], resolve),
           meta: { title: '11选5辅助' }
         }
       ]

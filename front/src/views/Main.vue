@@ -200,6 +200,22 @@ export default {
     goMiitbeian () {
     //   window.open('http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action')
     }
+  },
+  mounted: {
+    // render: (h) => {
+    // return h('p', {
+    //     style: {
+    //     fontSize: '13px'
+    //     }
+    // }, [
+    //     h('a', {
+    //     attrs: {
+    //         href: 'http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action',
+    //         target: '_blank'
+    //     }
+    //     }, '京ICP备18037389号')
+    // ])
+    // }
   }
 }
 </script>

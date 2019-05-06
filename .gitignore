@@ -1,2 +1,3 @@
 db/lotterys.db
 __pycache__/*
+venv/

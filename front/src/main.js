@@ -15,13 +15,13 @@ import VePie from 'v-charts/lib/pie.common'
 import 'iview/dist/styles/iview.css'
 import Ads from 'vue-google-adsense'
 import VueClipboard from 'vue-clipboard2'
-import Brusher from 'brusher'
+// import Brusher from 'brusher'
 
-Vue.use(Brusher)
+// Vue.use(Brusher)
 Vue.use(VueClipboard)
 Vue.use(require('vue-script2'))
 
-Vue.use(Ads.Adsense)
+Vue.use(Ads)
 // Vue.use(Ads.InArticleAdsense)
 // Vue.use(Ads.InFeedAdsense)
 

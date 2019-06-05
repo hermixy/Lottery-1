@@ -262,7 +262,7 @@ export default {
           sortable: true,
           sortType: 'desc',
           fixed: 'left',
-          width: 100
+          width: 105
         },
         {
           title: '开奖号码',

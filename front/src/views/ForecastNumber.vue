@@ -407,7 +407,7 @@ export default {
       let date = util.dataFormat(new Date(), 'yyyyMMdd')
       this.tableLoading = true
       let params = {
-        date: date.substring(2)
+        date: date
       }
       const res = await http.post('/lottery/getOpenData', params)
       if (http.isSuccess) {

@@ -6,8 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager, Shell
 from flask_migrate import Migrate
 import DataCombinations
-import OpenData_icaile
+# import OpenData_icaile
 import DataCharts
+import OpenData_ydniu
 
 app = Flask(__name__,
             static_folder="./dist/static",
@@ -70,7 +71,7 @@ def get_open_info():
         date = request.form['date']
         openNumber = OpenNumber.query.filter(
             OpenNumber.data_period.like(date + "%") if date is not None else "").all()
-        numberJson = OpenData_icaile.getOpenNumbers(openNumber)
+        numberJson = OpenData_ydniu.getOpenNumbers(openNumber)
         return return2Json(numberJson)
     return '暂无数据'
 

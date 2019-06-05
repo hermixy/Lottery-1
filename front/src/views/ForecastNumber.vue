@@ -4,7 +4,7 @@
     <Col :md="24" :lg="9" :style="{marginTop: '20px'}">
         <Row type="flex" align="middle">
             <Col span="18">
-                <Input v-model="value_number" placeholder="号码格式01 02 03 04 05" :maxlength="20" size="large">
+                <Input v-model="value_number" :placeholder="value_number_placeholder" :maxlength="20" size="large">
                     <Select v-model="value_number_select" slot="append" :disabled="value_number_select_disabled" style="width: 66px">
                         <Option value="m0">M0</Option>
                         <Option value="m1">M1</Option>
@@ -214,6 +214,7 @@ export default {
     return {
       loading: false,
       value_number: '',
+      value_number_placeholder: '号码格式01 02 03 04 05',
       value_numbers: '',
       value_number_select: 'm2',
       value_number_select_disabled: false,
@@ -500,6 +501,7 @@ export default {
         this.tableData = data
         this.tableDataNum = dataNum
         this.tableLoading = false
+        this.value_number = data[data.length - 1].data_award
       }
     },
     doCopy () {

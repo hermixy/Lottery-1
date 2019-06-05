@@ -80,6 +80,11 @@
     .layout-footer-center{
         text-align: center;
     }
+    .support{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
 </style>
 <template>
     <div class="layout">
@@ -158,6 +163,11 @@
                     <a>京ICP备18037389号</a>
                     <!-- <a href="#" @click="goMiitbeian">京ICP备18037389号</a> -->
                 </Footer>
+                <Affix :offset-bottom="100" class="support" >
+                    <ButtonGroup vertical>
+                        <Button icon="ios-chatbubbles" @click="goSupport"></Button>
+                    </ButtonGroup>
+                </Affix>
             </Layout>
         </Layout>
     </div>
@@ -198,7 +208,10 @@ export default {
     rulesClick () {
     },
     goMiitbeian () {
-    //   window.open('http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action')
+      window.open('http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action')
+    },
+    goSupport () {
+      window.open('http://wpa.qq.com/msgrd?v=3&uin=35899345&site=qq&menu=yes')
     }
   },
   mounted: {

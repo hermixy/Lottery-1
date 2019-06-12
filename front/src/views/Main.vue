@@ -12,7 +12,7 @@
     .layout-header-bar{
         background: #fff;
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
-        position: relative;
+        /* position: relative; */
     }
     .header-avator-con{
         position: absolute;
@@ -88,17 +88,65 @@
 </style>
 <template>
     <div class="layout">
-        <Layout :style="{minHeight: '100vh'}">
-            <Sider ref="side1" breakpoint="sm" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses">
-                    <MenuItem name="1" @click.native="toGoForecastNumber">
-                        <Icon type="happy-outline"></Icon>
-                        <span>山东11选5</span>
-                    </MenuItem>
-                    <MenuItem name="2" @click.native="toGoTrendingToday">
-                        <Icon type="connection-bars"></Icon>
-                        <span>数据统计</span>
-                    </MenuItem>
+        <Layout >
+            <Sider ref="side1" breakpoint="sm" :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
+                <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']" accordion>
+                    <Submenu name="1">
+                        <template slot="title">
+                            <Icon type="ios-analytics"></Icon>
+                            11选5
+                        </template>
+                        <MenuItem name="1-1" @click.native="toGoForecastNumber">
+                            <span>山东11选5</span>
+                        </MenuItem>
+                        <MenuItem name="10" @click.native="toGoForecastNumber">
+                            <span>广东11选5</span>
+                        </MenuItem>
+                        <MenuItem name="11" @click.native="toGoForecastNumber">
+                            <span>江西11选5</span>
+                        </MenuItem>
+                        <MenuItem name="12" @click.native="toGoForecastNumber">
+                            <span>江苏11选5</span>
+                        </MenuItem>
+                        <MenuItem name="2" @click.native="toGoTrendingToday">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>数据统计</span>
+                        </MenuItem>
+                    </Submenu>
+                    <Submenu name="3">
+                        <template slot="title">
+                            <Icon type="ios-analytics"></Icon>
+                            数字彩
+                        </template>
+                        <MenuItem name="3" @click.native="toGoForecastNumber">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>双色球</span>
+                        </MenuItem>
+                        <MenuItem name="4" @click.native="toGoForecastNumber">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>大乐透</span>
+                        </MenuItem>
+                        <MenuItem name="5" @click.native="toGoForecastNumber">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>七星彩</span>
+                        </MenuItem>
+                        <MenuItem name="6" @click.native="toGoForecastNumber">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>七乐彩</span>
+                        </MenuItem>
+                        <MenuItem name="7" @click.native="toGoForecastNumber">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>福彩3D</span>
+                        </MenuItem>
+                        <MenuItem name="8" @click.native="toGoForecastNumber">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>排列三</span>
+                        </MenuItem>
+                        <MenuItem name="9" @click.native="toGoForecastNumber">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>排列五</span>
+                        </MenuItem>
+                    </Submenu>
                 </Menu>
                 <!-- <p style="color: #F9453E; font-size: 14px; position:absolute; bottom:0; width:100%; height:80px;text-align: center;" >投注有风险，投资需谨慎</p> -->
                 <Adsense
@@ -106,9 +154,9 @@
                     data-ad-slot="8089222718">
                 </Adsense>
             </Sider>
-            <Layout>
-                <Header :style="{padding: 0}" class="layout-header-bar">
-                    <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
+            <Layout :style="{marginLeft: '200px'}">
+                <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
+                    <!-- <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="md-menu" size="24"></Icon> -->
                     <!-- <div class="header-avator-con">
                         <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
                             <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">

@@ -44,6 +44,15 @@ class OpenNumber(db.Model):
         self.data_qiou = data_qiou
         self.data_zhihe = data_zhihe
 
+class OpenNumber_Ssq(db.Model):
+    __tablename__ = 'open_numbers_ssq'
+    id = db.Column(db.Integer, primary_key=True)
+    data_period = db.Column(db.String(20))
+    data_award = db.Column(db.String(50))
+
+    def __init__(self, data_period, data_award):
+        self.data_period = data_period
+        self.data_award = data_award
 
 def cors(func):
     @wraps(func)
@@ -75,6 +84,16 @@ def get_open_info():
         return return2Json(numberJson)
     return '暂无数据'
 
+@app.route('/lottery/getOpenData', methods=['POST'])
+@cors
+def get_open_data():
+    if request.method == 'POST':
+        type = request.form['type']
+        if type == 'ssq':
+            openNumber = OpenNumber_Ssq.query().all()
+            numberJson = OpenData_ydniu.getOpenNumbers(openNumber)
+            return return2Json(numberJson)
+    return '暂无数据'
 
 @app.route('/lottery', methods=['POST'])
 @cors

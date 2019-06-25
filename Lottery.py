@@ -6,9 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager, Shell
 from flask_migrate import Migrate
 import DataCombinations
-# import OpenData_icaile
 import DataCharts
 import OpenData_ydniu
+import OpenData_ydniu_ssq
 
 app = Flask(__name__,
             static_folder="./dist/static",
@@ -44,6 +44,7 @@ class OpenNumber(db.Model):
         self.data_qiou = data_qiou
         self.data_zhihe = data_zhihe
 
+
 class OpenNumber_Ssq(db.Model):
     __tablename__ = 'open_numbers_ssq'
     id = db.Column(db.Integer, primary_key=True)
@@ -53,6 +54,7 @@ class OpenNumber_Ssq(db.Model):
     def __init__(self, data_period, data_award):
         self.data_period = data_period
         self.data_award = data_award
+
 
 def cors(func):
     @wraps(func)
@@ -84,16 +86,20 @@ def get_open_info():
         return return2Json(numberJson)
     return '暂无数据'
 
-@app.route('/lottery/getOpenData', methods=['POST'])
+
+@app.route('/lottery/getOpenDataOf', methods=['POST'])
 @cors
 def get_open_data():
     if request.method == 'POST':
-        type = request.form['type']
-        if type == 'ssq':
-            openNumber = OpenNumber_Ssq.query().all()
-            numberJson = OpenData_ydniu.getOpenNumbers(openNumber)
+        lotteryType = request.form['type']
+        if lotteryType == 'ssq':
+            openNumber_ssq = OpenNumber_Ssq.query.order_by(OpenNumber_Ssq.data_period.desc()).all()
+            numberJson = OpenData_ydniu_ssq.getOpenNumbers(openNumber_ssq)
             return return2Json(numberJson)
+        elif lotteryType == 'dlt':
+            pass
     return '暂无数据'
+
 
 @app.route('/lottery', methods=['POST'])
 @cors

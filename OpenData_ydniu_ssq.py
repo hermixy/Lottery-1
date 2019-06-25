@@ -8,6 +8,7 @@ import Lottery
 import schedule
 import time
 
+
 def getData():
     try:
         request = requests.get("https://chart.ydniu.com/Trend/Ssq/ssqjbzs.html")
@@ -60,15 +61,9 @@ def getData():
 
 
 class DataAward(object):
-    def __init__(self, data_period, data_award, data_type, data_value, data_span, data_size, data_qiou, data_zhihe):
+    def __init__(self, data_period, data_award):
         self.data_period = data_period
         self.data_award = data_award
-        self.data_type = data_type
-        self.data_value = data_value
-        self.data_span = data_span
-        self.data_size = data_size
-        self.data_qiou = data_qiou
-        self.data_zhihe = data_zhihe
 
 
 numberDict = []
@@ -79,8 +74,7 @@ def getOpenNumbers(openNumber):
     list2json = {}
     # print(type(openNumber))
     for item in openNumber:
-        dataAward = DataAward(item.data_period, item.data_award, item.data_type, item.data_value,
-                              item.data_span, item.data_size, item.data_qiou, item.data_zhihe)
+        dataAward = DataAward(item.data_period, item.data_award)
         numberDict.append(dataAward)
         # print(json.dumps(dataAward, default=lambda obj: obj.__dict__))
     if numberDict:
@@ -109,7 +103,7 @@ def getRandom():
 
 if __name__ == '__main__':
     getData()
-    schedule.every().day.at("21:30").do(getData())
+    schedule.every().day.at("21:30").do(getData)
     while True:
         schedule.run_pending()
         time.sleep(1)

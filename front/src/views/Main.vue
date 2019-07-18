@@ -118,7 +118,7 @@
                             <Icon type="ios-analytics"></Icon>
                             数字彩
                         </template>
-                        <MenuItem name="3" @click.native="toGoForecastNumber">
+                        <MenuItem name="3" @click.native="toGoSsq">
                             <Icon type="ios-navigate"></Icon>
                             <span>双色球</span>
                         </MenuItem>
@@ -252,6 +252,9 @@ export default {
     },
     toGoTrendingToday () {
       this.$router.push({path: '/trendingToday'})
+    },
+    toGoSsq () {
+      this.$router.push({path: '/ssq'})
     },
     rulesClick () {
     },

@@ -16,6 +16,9 @@ import 'iview/dist/styles/iview.css'
 import Ads from 'vue-google-adsense'
 import VueClipboard from 'vue-clipboard2'
 // import Brusher from 'brusher'
+// import { Button, Table, Row, Col, Input, Select, Switch } from 'iview'
+// Vue.component('Button', Button)
+// Vue.component('Table', Table)
 
 // Vue.use(Brusher)
 Vue.use(VueClipboard)

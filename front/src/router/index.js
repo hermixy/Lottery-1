@@ -27,6 +27,12 @@ export default new Router({
           name: '玩法选择',
           component: resolve => require(['@/views/ForecastNumber.vue'], resolve),
           meta: { title: '11选5辅助' }
+        },
+        {
+          path: 'ssq',
+          name: '双色球',
+          component: resolve => require(['@/views/PageSsq.vue'], resolve),
+          meta: { title: '双色球' }
         }
       ]
     },

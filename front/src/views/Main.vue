@@ -89,7 +89,7 @@
 <template>
     <div class="layout">
         <Layout >
-            <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed" :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
+            <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
                 <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']" accordion>
                     <Submenu name="1">
                         <template slot="title">
@@ -154,7 +154,7 @@
                     data-ad-slot="8089222718">
                 </Adsense>
             </Sider>
-            <Layout :style="{marginLeft: '200px'}">
+            <Layout>
                 <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
                     <Icon @click.native="collapsedSider" :class="rotateIcon" type="md-menu" size="24"></Icon>
                     <!-- <div class="header-avator-con">

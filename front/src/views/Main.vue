@@ -89,7 +89,7 @@
 <template>
     <div class="layout">
         <Layout >
-            <Sider ref="side1" breakpoint="sm" :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
+            <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed" :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
                 <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']" accordion>
                     <Submenu name="1">
                         <template slot="title">
@@ -156,7 +156,7 @@
             </Sider>
             <Layout :style="{marginLeft: '200px'}">
                 <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
-                    <!-- <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="md-menu" size="24"></Icon> -->
+                    <Icon @click.native="collapsedSider" :class="rotateIcon" type="md-menu" size="24"></Icon>
                     <!-- <div class="header-avator-con">
                         <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
                             <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">

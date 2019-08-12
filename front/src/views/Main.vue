@@ -89,8 +89,8 @@
 <template>
     <div class="layout">
         <Layout >
-            <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']" accordion>
+            <Sider ref="side1" breakpoint="sm" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
+                <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']" accordion :class="menuitemClasses">
                     <Submenu name="1">
                         <template slot="title">
                             <Icon type="ios-analytics"></Icon>
@@ -155,8 +155,8 @@
                 </Adsense>
             </Sider>
             <Layout>
-                <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
-                    <Icon @click.native="collapsedSider" :class="rotateIcon" type="md-menu" size="24"></Icon>
+                <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)', padding: 0}" class="layout-header-bar">
+                    <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px'}" type="md-menu" size="24"></Icon>
                     <!-- <div class="header-avator-con">
                         <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
                             <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">

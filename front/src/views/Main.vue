@@ -8,6 +8,8 @@
         position: relative;
         border-radius: 4px;
         overflow: hidden;
+        margin: 0;
+        padding: 0;
     }
     .layout-header-bar{
         background: #fff;
@@ -88,8 +90,8 @@
 </style>
 <template>
     <div class="layout">
-        <Layout >
-            <Sider ref="side1" breakpoint="sm" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
+        <Layout>
+            <Sider ref="side1" breakpoint="sm" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed" :style="{margin: '0', padding : '0'}">
                 <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']" accordion :class="menuitemClasses">
                     <Submenu name="1">
                         <template slot="title">

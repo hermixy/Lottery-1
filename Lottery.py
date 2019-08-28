@@ -117,7 +117,7 @@ def get_numbers():
     return '暂无数据'
 
 
-@app.route('/jx', methods=['POST'])
+@app.route('/lottery/jx', methods=['POST'])
 @cors
 def get_jx_numbers():
     if request.method == 'POST':

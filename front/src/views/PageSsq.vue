@@ -52,6 +52,27 @@ export default {
         this.columnsData = listData
         this.tableLoading = false
       }
+    },
+    jxOne: async function () {
+      let params = {
+        type: 'ssq',
+        count: 1
+      }
+      const res = await http.post('/lottery/jx', params)
+      if (http.isSuccess) {
+        let listData = res.listData
+        let content = ''
+        let index = 0
+        for (let i = 0; i < listData.length; i++) {
+          if (index > 0) {
+            content = content + '\n'
+          }
+          content = content + listData[i].number
+          index++
+        }
+        this.value_numbers = content
+        console.log(res.listData)
+      }
     }
   }
 }

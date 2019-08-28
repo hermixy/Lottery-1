@@ -159,7 +159,7 @@
             placeholder="预测号码" :readonly="true" :style="{width: '100%'}"></Input>
             </br>
             <p :style="{marginTop:'10px', textAlign: 'center'}">共{{zhuNum}}组</p>
-          </Card>
+        </Card>
     </Col>
     <Col :md="16" :lg="15" >
         <Row :style="{marginTop:'16px'}" type="flex" align="middle">

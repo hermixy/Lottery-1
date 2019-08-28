@@ -1,6 +1,20 @@
 <template>
-  <Table :style="{marginTop:'16px', marginBottom: '16px'}" :loading="tableLoading"
-      stripe  border :columns="columns" :data="columnsData" height="444"></Table>
+  <Row :gutter="30">
+    <Col :md="6" :lg="8" :style="{marginTop:'16px', marginBottom: '16px'}" type="flex" justify="center" align="middle">
+      <Button type="primary" @click="jxOne">随机一注</Button>
+      <Button type="primary" @click="jxThree">随机三注</Button>
+      <Button type="primary" @click="jxFive">随机五注</Button>
+      <div>
+        <Input v-model="value_numbers" type="textarea" :rows="17"
+            placeholder="机选号码" :style="{width: '100%',marginTop:'16px'}">
+        </Input>
+      </div>
+    </Col>
+    <Col :md="18" :lg="16" :style="{marginTop:'16px', marginBottom: '16px'}">
+      <Table :loading="tableLoading"
+          stripe  border :columns="columns" :data="columnsData" height="444"></Table>
+    </Col>
+  </Row>
 </template>
 <script>
 import http from '../utils/http'
@@ -10,15 +24,18 @@ export default {
       columns: [
         {
           title: '期号',
+          align: 'center',
           key: 'data_period'
         },
         {
           title: '开奖号码',
+          align: 'center',
           key: 'data_award'
         }
       ],
       columnsData: [],
-      tableLoading: true
+      tableLoading: true,
+      value_numbers: ''
     }
   },
   mounted: function () {

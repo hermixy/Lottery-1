@@ -7,6 +7,7 @@ from flask_script import Manager, Shell
 from flask_migrate import Migrate
 import DataCombinations
 import DataCharts
+import DataRandom
 import OpenData_ydniu
 import OpenData_ydniu_ssq
 
@@ -112,6 +113,17 @@ def get_numbers():
         dxbNumber = request.form['dxb']
         qobNumber = request.form['qob']
         numberJson = DataCombinations.getForecastNumbers(method, numbers, scNumber, ddNumber, dxbNumber, qobNumber)
+        return return2Json(numberJson)
+    return '暂无数据'
+
+
+@app.route('/jx', methods=['POST'])
+@cors
+def get_jx_numbers():
+    if request.method == 'POST':
+        method = request.form['type']
+        count = request.form['count']
+        numberJson = DataRandom.get_jx_numbers(method, count)
         return return2Json(numberJson)
     return '暂无数据'
 

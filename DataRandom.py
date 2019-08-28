@@ -65,4 +65,4 @@ def get_jx_numbers(type, count):
 
 if __name__ == '__main__':
     # random_num("dlt", 3)
-    get_jx_numbers("dlt", 3)
+    get_jx_numbers("ssq", 3)

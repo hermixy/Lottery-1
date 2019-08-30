@@ -2,11 +2,12 @@
 <div>
   <Row :gutter="30">
     <Col :md="6" :lg="8" :style="{marginTop:'16px', marginBottom: '16px'}" type="flex" justify="center" align="middle">
-      <Button type="primary" @click="jx(1)">随机一注</Button>
-      <Button type="primary" @click="jx(3)">随机三注</Button>
-      <Button type="primary" @click="jx(5)">随机五注</Button>
+      <Button type="primary" @click="jx('ssq', '1')">随机一注</Button>
+      <Button type="primary" @click="jx('ssq', '3')">随机三注</Button>
+      <Button type="primary" @click="jx('ssq', '5')">随机五注</Button>
+      <Button type="primary" @click="jx('dlt', '3')">大乐透随机三注</Button>
       <div>
-        <Input v-model="value_numbers" type="textarea" :rows="17"
+        <Input v-model="value_numbers" type="textarea" :rows="10"
             placeholder="机选号码" :style="{width: '100%',marginTop:'16px'}">
         </Input>
       </div>
@@ -55,25 +56,19 @@ export default {
         this.tableLoading = false
       }
     },
-    jx: async function (num) {
+    jx: async function (type, num) {
       let params = {
-        type: 'ssq',
+        type: type,
         count: num
       }
       const res = await http.post('/lottery/jx', params)
       if (http.isSuccess) {
         let listData = res.listData
-        // let content = ''
-        // let index = 0
-        // for (let i = 0; i < listData.length; i++) {
-        //   if (index > 0) {
-        //     content = content + '\n'
-        //   }
-        //   content = content + listData[i].number
-        //   index++
-        // }
-        // this.value_numbers = content
-        console.log(listData)
+        let content = this.value_numbers
+        for (let i = 0; i < listData.length; i++) {
+          content = content + listData[i].number + '\n'
+        }
+        this.value_numbers = content
       }
     }
   }

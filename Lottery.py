@@ -57,6 +57,17 @@ class OpenNumber_Ssq(db.Model):
         self.data_award = data_award
 
 
+class OpenNumber_Dlt(db.Model):
+    __tablename__ = 'open_numbers_dlt'
+    id = db.Column(db.Integer, primary_key=True)
+    data_period = db.Column(db.String(20))
+    data_award = db.Column(db.String(50))
+
+    def __init__(self, data_period, data_award):
+        self.data_period = data_period
+        self.data_award = data_award
+
+
 def cors(func):
     @wraps(func)
     def wrapper_func(*args, **kwargs):

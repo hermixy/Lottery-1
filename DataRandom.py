@@ -15,6 +15,7 @@ def randoms(type):
         red = generate_num(5, 35)
         blue = generate_num(2, 12)
         number = "红球：" + red + " 蓝球：" + blue
+    print(number)
     return number
 
 
@@ -46,7 +47,7 @@ class JxData(object):
 def get_jx_numbers(type, count):
     numberDict = []
     list2json = {}
-    numbers = random_num(type, count)
+    numbers = random_num(type, int(count))
     for item in numbers:
         data = JxData(item)
         numberDict.append(data)
@@ -65,4 +66,4 @@ def get_jx_numbers(type, count):
 
 if __name__ == '__main__':
     # random_num("dlt", 3)
-    get_jx_numbers("ssq", 3)
+    get_jx_numbers("ssq", "2")

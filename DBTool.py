@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # pass
     # createDB()
     # dropDB()
-    # python DBTool.py db init
-    # python DBTool.py db migrate
-    # python DBTool.py db upgrade
+    # python3 DBTool.py db init
+    # python3 DBTool.py db migrate
+    # python3 DBTool.py db upgrade
     Lottery.manager.run()

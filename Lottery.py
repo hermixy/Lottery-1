@@ -69,6 +69,61 @@ class OpenNumber_Dlt(db.Model):
         self.data_award = data_award
 
 
+class OpenNumber_Fc3d(db.Model):
+    __tablename__ = 'open_numbers_fc3d'
+    id = db.Column(db.Integer, primary_key=True)
+    data_period = db.Column(db.String(20))
+    data_award = db.Column(db.String(50))
+
+    def __init__(self, data_period, data_award):
+        self.data_period = data_period
+        self.data_award = data_award
+
+
+class OpenNumber_Qxc(db.Model):
+    __tablename__ = 'open_numbers_qxc'
+    id = db.Column(db.Integer, primary_key=True)
+    data_period = db.Column(db.String(20))
+    data_award = db.Column(db.String(50))
+
+    def __init__(self, data_period, data_award):
+        self.data_period = data_period
+        self.data_award = data_award
+
+
+class OpenNumber_Qlc(db.Model):
+    __tablename__ = 'open_numbers_qlc'
+    id = db.Column(db.Integer, primary_key=True)
+    data_period = db.Column(db.String(20))
+    data_award = db.Column(db.String(50))
+
+    def __init__(self, data_period, data_award):
+        self.data_period = data_period
+        self.data_award = data_award
+
+
+class OpenNumber_Pl3(db.Model):
+    __tablename__ = 'open_numbers_pl3'
+    id = db.Column(db.Integer, primary_key=True)
+    data_period = db.Column(db.String(20))
+    data_award = db.Column(db.String(50))
+
+    def __init__(self, data_period, data_award):
+        self.data_period = data_period
+        self.data_award = data_award
+
+
+class OpenNumber_Pl5(db.Model):
+    __tablename__ = 'open_numbers_pl5'
+    id = db.Column(db.Integer, primary_key=True)
+    data_period = db.Column(db.String(20))
+    data_award = db.Column(db.String(50))
+
+    def __init__(self, data_period, data_award):
+        self.data_period = data_period
+        self.data_award = data_award
+
+
 def cors(func):
     @wraps(func)
     def wrapper_func(*args, **kwargs):

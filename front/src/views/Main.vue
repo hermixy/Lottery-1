@@ -128,23 +128,23 @@
                             <Icon type="ios-navigate"></Icon>
                             <span>大乐透</span>
                         </MenuItem>
-                        <MenuItem name="5" @click.native="toGoForecastNumber">
-                            <Icon type="ios-navigate"></Icon>
-                            <span>七星彩</span>
-                        </MenuItem>
-                        <MenuItem name="6" @click.native="toGoForecastNumber">
-                            <Icon type="ios-navigate"></Icon>
-                            <span>七乐彩</span>
-                        </MenuItem>
-                        <MenuItem name="7" @click.native="toGoForecastNumber">
+                        <MenuItem name="7" @click.native="toGo('fc3d')">
                             <Icon type="ios-navigate"></Icon>
                             <span>福彩3D</span>
                         </MenuItem>
-                        <MenuItem name="8" @click.native="toGoForecastNumber">
+                        <MenuItem name="5" @click.native="toGo('qxc')">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>七星彩</span>
+                        </MenuItem>
+                        <MenuItem name="6" @click.native="toGo('qlc')">
+                            <Icon type="ios-navigate"></Icon>
+                            <span>七乐彩</span>
+                        </MenuItem>
+                        <MenuItem name="8" @click.native="toGo('pl3')">
                             <Icon type="ios-navigate"></Icon>
                             <span>排列三</span>
                         </MenuItem>
-                        <MenuItem name="9" @click.native="toGoForecastNumber">
+                        <MenuItem name="9" @click.native="toGo('pl5')">
                             <Icon type="ios-navigate"></Icon>
                             <span>排列五</span>
                         </MenuItem>

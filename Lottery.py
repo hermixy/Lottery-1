@@ -113,7 +113,6 @@ def get_open_data():
             openNumber_dlt = OpenNumber_Dlt.query.order_by(OpenNumber_Dlt.data_period.desc()).all()
             numberJson = OpenData_ydniu_dlt.getOpenNumbers(openNumber_dlt)
             return return2Json(numberJson)
-            pass
     return '暂无数据'
 
 

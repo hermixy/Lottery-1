@@ -29,10 +29,10 @@ export default new Router({
           meta: { title: '11选5辅助' }
         },
         {
-          path: 'ssq',
-          name: '双色球',
-          component: resolve => require(['@/views/PageSsq.vue'], resolve),
-          meta: { title: '双色球' }
+          path: 'szc/:type',
+          name: 'szc',
+          component: resolve => require(['@/views/PageSzc.vue'], resolve),
+          meta: { title: '数字彩' }
         }
       ]
     },

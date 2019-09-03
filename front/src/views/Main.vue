@@ -120,11 +120,11 @@
                             <Icon type="ios-analytics"></Icon>
                             数字彩
                         </template>
-                        <MenuItem name="3" @click.native="toGoSsq">
+                        <MenuItem name="3" @click.native="toGo('ssq')">
                             <Icon type="ios-navigate"></Icon>
                             <span>双色球</span>
                         </MenuItem>
-                        <MenuItem name="4" @click.native="toGoForecastNumber">
+                        <MenuItem name="4" @click.native="toGo('dlt')">
                             <Icon type="ios-navigate"></Icon>
                             <span>大乐透</span>
                         </MenuItem>
@@ -255,8 +255,13 @@ export default {
     toGoTrendingToday () {
       this.$router.push({path: '/trendingToday'})
     },
-    toGoSsq () {
-      this.$router.push({path: '/ssq'})
+    toGo (type) {
+      this.$router.push({
+        name: 'szc',
+        params: {
+          type: type
+        }
+      })
     },
     rulesClick () {
     },

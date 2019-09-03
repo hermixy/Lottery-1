@@ -2,10 +2,9 @@
 <div>
   <Row :gutter="30">
     <Col :md="6" :lg="8" :style="{marginTop:'16px', marginBottom: '16px'}" type="flex" justify="center" align="middle">
-      <Button type="primary" @click="jx('ssq', '1')">随机一注</Button>
-      <Button type="primary" @click="jx('ssq', '3')">随机三注</Button>
-      <Button type="primary" @click="jx('ssq', '5')">随机五注</Button>
-      <Button type="primary" @click="jx('dlt', '3')">大乐透随机三注</Button>
+      <Button type="primary" @click="jx('1')">随机一注</Button>
+      <Button type="primary" @click="jx('3')">随机三注</Button>
+      <Button type="primary" @click="jx('5')">随机五注</Button>
       <div>
         <Input v-model="value_numbers" type="textarea" :rows="10"
             placeholder="机选号码" :style="{width: '100%',marginTop:'16px'}">
@@ -41,13 +40,21 @@ export default {
       value_numbers: ''
     }
   },
+  watch: {
+    '$route' (to, from) {
+      this.getOpenData()
+    }
+  },
   mounted: function () {
     this.getOpenData()
   },
   methods: {
+    getType: function () {
+      return this.$route.params.type
+    },
     getOpenData: async function () {
       let params = {
-        type: 'ssq'
+        type: this.getType()
       }
       const res = await http.post('/lottery/getOpenDataOf', params)
       if (http.isSuccess) {
@@ -56,9 +63,9 @@ export default {
         this.tableLoading = false
       }
     },
-    jx: async function (type, num) {
+    jx: async function (num) {
       let params = {
-        type: type,
+        type: this.getType(),
         count: num
       }
       const res = await http.post('/lottery/jx', params)

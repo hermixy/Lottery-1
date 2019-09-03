@@ -9,6 +9,7 @@ import DataCombinations
 import DataCharts
 import DataRandom
 import OpenData_ydniu
+import OpenData_ydniu_dlt
 import OpenData_ydniu_ssq
 
 app = Flask(__name__,
@@ -109,6 +110,9 @@ def get_open_data():
             numberJson = OpenData_ydniu_ssq.getOpenNumbers(openNumber_ssq)
             return return2Json(numberJson)
         elif lotteryType == 'dlt':
+            openNumber_dlt = OpenNumber_Dlt.query.order_by(OpenNumber_Dlt.data_period.desc()).all()
+            numberJson = OpenData_ydniu_dlt.getOpenNumbers(openNumber_dlt)
+            return return2Json(numberJson)
             pass
     return '暂无数据'
 

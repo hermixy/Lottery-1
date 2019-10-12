@@ -5,14 +5,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 // import Routers from './src/router/index.js'
-import iView from 'iview'
+import ViewUI from 'view-design'
 // import ElementUI from 'element-ui'
 // import VCharts from 'v-charts'
 import VeLine from 'v-charts/lib/line.common'
 import VeHistogram from 'v-charts/lib/histogram.common'
 import VePie from 'v-charts/lib/pie.common'
 // import 'element-ui/lib/theme-chalk/index.css'
-import 'iview/dist/styles/iview.css'
+import 'view-design/dist/styles/iview.css'
 import Ads from 'vue-google-adsense'
 import VueClipboard from 'vue-clipboard2'
 // import Brusher from 'brusher'
@@ -29,7 +29,7 @@ Vue.use(Ads)
 // Vue.use(Ads.InFeedAdsense)
 
 // Vue.use(VueRouter)
-Vue.use(iView)
+Vue.use(ViewUI)
 // Vue.use(ElementUI)
 Vue.component(VeLine.name, VeLine)
 Vue.component(VeHistogram.name, VeHistogram)
@@ -39,7 +39,7 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
-  iView.LoadingBar.start()
+  ViewUI.LoadingBar.start()
   if (to.meta.title) {
     document.title = to.meta.title
   }
@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to) => {
-  iView.LoadingBar.finish()
+  ViewUI.LoadingBar.finish()
 })
 
 // The routing configuration

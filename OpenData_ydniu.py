@@ -29,14 +29,21 @@ def getData():
             td = tr.find_all('td')
             data_period = td[0].text
             data_award = td[1].text + " " + td[2].text + " " + td[3].text + " " + td[4].text + " " + td[5].text
-            qozh_list = tr.find_all('td', attrs={'class': 'k lan2'})
-            o = qozh_list[0].text  # 偶数个数
-            h = qozh_list[1].text  # 合数个数
-            dx_list = tr.find_all('td', attrs={'class': 'k lan21'})
-            x = dx_list[0].text  # 大数个数
-            d = 5 - int(x)  # 小数个数
-            q = 5 - int(o)  # 奇数个数
-            z = 5 - int(h)  # 质数个数
+            # print(data_award)
+            # qozh_list = tr.find_all('td', attrs={'class': 'k lan2'})
+            # o = qozh_list[0].text  # 偶数个数
+            # h = qozh_list[1].text  # 合数个数
+            # dx_list = tr.find_all('td', attrs={'class': 'k lan21'})
+            # x = dx_list[0].text  # 大数个数
+            # d = 5 - int(x)  # 小数个数
+            # q = 5 - int(o)  # 奇数个数
+            # z = 5 - int(h)  # 质数个数
+            q = tr.find_all('td', attrs={'class': 'k lan2 c_jo'})[0].text  # 奇数个数
+            d = tr.find_all('td', attrs={'class': 'k lan21 c_dx'})[0].text  # 大数个数
+            z = tr.find_all('td', attrs={'class': 'k lan2 c_zh'})[0].text  # 质数个数
+            x = 5 - int(d)  # 小数个数
+            o = 5 - int(q)  # 偶数个数
+            h = 5 - int(z)  # 合数个数
             qob = str(o) + ":" + str(q)
             dxb = str(x) + ":" + str(d)
             zhb = str(h) + ":" + str(z)
